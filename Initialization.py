@@ -1,4 +1,8 @@
-# -*- coding: utf-8 -*-
+# Find words in a picture
+# @Time: 8/12/2020
+# @Author: lnblanke
+# @Email: fjh314.84@gmail.com
+# @File: Initialization.py
 
 import cv2
 import numpy as np
