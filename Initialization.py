@@ -80,6 +80,6 @@ for x1 , y1 , x2 , y2 in box :
 
     crop = cv2.cvtColor ( crop , cv2.COLOR_BGR2GRAY )
 
-    cv2.imwrite ( os.path.join ( "Testset" , str ( i ) + ".jpg") , crop )
+    cv2.imwrite ( os.path.join ( "CNN/Testset" , str ( i ) + ".jpg" ) , crop )
 
     i += 1

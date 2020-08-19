@@ -19,10 +19,10 @@ count = 0
 
 train_label = [ ]
 
-for _ , _ , files in os.walk ( "../Training" ) :
+for _ , _ , files in os.walk ( "Training" ) :
     for file in files :
         for k in range ( 100 ) :
-            train_img = Image.open ( os.path.join ( "../Training" , file ) ).convert ( "L" )
+            train_img = Image.open ( os.path.join ( "Training" , file ) ).convert ( "L" )
 
             train_label.append ( file [ : 1 ] )
 
@@ -43,9 +43,9 @@ arr = [ ]
 
 count = 0
 
-for _ , _ , files in os.walk ( "../Testset" ) :
+for _ , _ , files in os.walk ( "Testset" ) :
     for file in files :
-        test_img = Image.open ( os.path.join ( "../Testset" , file ) ).convert ( "L" )
+        test_img = Image.open ( os.path.join ( "Testset" , file ) ).convert ( "L" )
 
         if test_img.size [ 0 ] != 28 or test_img.size [ 1 ] != 28 :
             test_img.resize ( (28 , 28) )
@@ -85,6 +85,3 @@ model.fit (
 prediction = model.predict ( test_img )
 
 print ( np.argmax ( prediction , axis = 1 ) )
-
-for _ , _ , files in os.walk ( "../Testset" ) :
-    print ( files )
