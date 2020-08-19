@@ -1,7 +1,7 @@
 # @Time: 8/14/2020
 # @Author: lnblanke
 # @Email: fjh314.84@gmail.com
-# @File: RNN_class.py
+# @File: rnn_class.py
 
 import numpy as np
 

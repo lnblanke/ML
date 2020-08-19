@@ -2,7 +2,7 @@
 # @Time: 8/13/2020
 # @Author: lnblanke
 # @Email: fjh314.84@gmail.com
-# @File: CNNclass.py
+# @File: cnn_class.py
 
 import numpy as np
 

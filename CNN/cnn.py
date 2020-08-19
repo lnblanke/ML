@@ -2,12 +2,12 @@
 # @Time: 8/13/2020
 # @Author: lnblanke
 # @Email: fjh314.84@gmail.com
-# @File: CNN.py
+# @File: cnn.py
 
 import mnist
-from CNNclass import Conv
-from MaxPool import MaxPool
-from Softmax import Softmax
+from CNN.cnn_class import Conv
+from CNN.MaxPool import MaxPool
+from CNN.Softmax import Softmax
 import numpy as np
 
 train_img = mnist.train_images () [ :10000 ]

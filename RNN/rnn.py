@@ -1,11 +1,11 @@
 # @Time: 8/14/2020
 # @Author: lnblanke
 # @Email: fjh314.84@gmail.com
-# @File: RNN.py
+# @File: rnn.py
 
-from data import train_data , test_data
+from RNN.data import train_data , test_data
 import numpy as np
-from RNN_class import recur
+from RNN.rnn_class import recur
 import random
 
 vocab = list ( set ( [ w for text in train_data.keys () for w in text.split ( ' ' ) ] ) )

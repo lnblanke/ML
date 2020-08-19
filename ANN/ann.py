@@ -2,7 +2,7 @@
 # @Time: 8/13/2020
 # @Author: lnblanke
 # @Email: fjh314.84@gmail.com
-# @File: ANN.py
+# @File: ann.py
 
 import numpy as np
 
