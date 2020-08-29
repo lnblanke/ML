@@ -19,6 +19,7 @@ count = 0
 
 train_label = [ ]
 
+# Get train images
 for _ , _ , files in os.walk ( "Training" ) :
     for file in files :
         for k in range ( 100 ) :
@@ -43,6 +44,7 @@ arr = [ ]
 
 count = 0
 
+# Get test images
 for _ , _ , files in os.walk ( "Testset" ) :
     for file in files :
         test_img = Image.open ( os.path.join ( "Testset" , file ) ).convert ( "L" )
@@ -66,6 +68,7 @@ test_img = test_img / 255 - 0.5
 train_img = np.expand_dims ( train_img , 3 )
 test_img = np.expand_dims ( test_img , 3 )
 
+# Form the CNN model
 model = Sequential ( [
     Conv2D ( 8 , 3 , input_shape = (28 , 28 , 1) , use_bias = False ) ,
     MaxPooling2D ( pool_size = 2 ) ,
@@ -73,6 +76,7 @@ model = Sequential ( [
     Dense ( 10 , activation = 'softmax' )
 ] )
 
+# Train
 model.compile ( SGD ( lr = .005 ) , loss = 'categorical_crossentropy' , metrics = [ 'accuracy' ] )
 
 model.fit (
@@ -82,6 +86,7 @@ model.fit (
     epochs = 1 ,
 )
 
+# Test
 prediction = model.predict ( test_img )
 
 print ( np.argmax ( prediction , axis = 1 ) )

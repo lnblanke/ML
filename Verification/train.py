@@ -10,6 +10,7 @@ import random , cv2
 import tensorflow.compat.v1 as tf
 from captcha.image import ImageCaptcha
 
+# Compat tensorflow to tf1
 tf.disable_v2_behavior ()
 
 number = [ '0' , '1' , '2' , '3' , '4' , '5' , '6' , '7' , '8' , '9' ]
@@ -18,11 +19,14 @@ alphabet = [ 'a' , 'b' , 'c' , 'd' , 'e' , 'f' , 'g' , 'h' , 'i' , 'j' , 'k' , '
 ALPHABET = [ 'A' , 'B' , 'C' , 'D' , 'E' , 'F' , 'G' , 'H' , 'I' , 'J' , 'K' , 'L' , 'M' , 'N' , 'O' , 'P' , 'Q' , 'R' ,
              'S' , 'T' , 'U' , 'V' , 'W' , 'X' , 'Y' , 'Z' ]
 
+set_size = 10
+
 X = tf.placeholder ( tf.float32 , [ None , 60 * 160 ] )
-Y = tf.placeholder ( tf.float32 , [ None , 4 * 62 ] )
+Y = tf.placeholder ( tf.float32 , [ None , 4 * set_size ] )
 keep_prob = tf.placeholder ( tf.float32 )
 
-def generate_text ( set = number + alphabet + ALPHABET , length = 4 ) :
+# Randomly generate verification codes
+def generate_text ( set = number , length = 4 ) :
     image = ImageCaptcha ()
 
     text = ""
@@ -37,8 +41,9 @@ def generate_text ( set = number + alphabet + ALPHABET , length = 4 ) :
 
     return text , image
 
+# Use one-hot code to transform for text to vector
 def text2vec ( text ) :
-    vector = np.zeros ( 4 * 62 )
+    vector = np.zeros ( 4 * set_size )
 
     for i , char in enumerate ( text ) :
         k = ord ( char ) - 48
@@ -48,15 +53,18 @@ def text2vec ( text ) :
             if k > 35 :
                 k = ord ( char ) - 61
 
-        vector [ i * 62 + k ] = 1
+        vector [ i * set_size + k ] = 1
 
     return vector
 
+# Decrypt from vector to text
 def vec2text ( vec ) :
     text = ""
 
-    for i , char in enumerate ( vec [ 0 ] ) :
-        index = char % 62
+    vector = vec [ 0 ]
+
+    for i , char in enumerate ( vector ) :
+        index = char % set_size
 
         if index < 10 :
             code = index + ord ( "0" )
@@ -65,13 +73,14 @@ def vec2text ( vec ) :
         else :
             code = index - 35 + ord ( "a" )
 
-        text += code
+        text += chr ( code )
 
     return text
 
+# Generate next couple of codes
 def getNext ( size = 128 ) :
     batchx = np.zeros ( [ size , 160 * 60 ] )
-    batchy = np.zeros ( [ size , 4 * 62 ] )
+    batchy = np.zeros ( [ size , 4 * set_size ] )
 
     for i in range ( size ) :
         text , image = generate_text ()
@@ -82,6 +91,7 @@ def getNext ( size = 128 ) :
 
     return batchx , batchy
 
+# Create a conv with tensorflow
 def cnn ( w_alpha = 0.01 , b_alpha = 0.1 ) :
     x = tf.reshape ( X , shape = [ -1 , 60 , 160 , 1 ] )
     w_c1 = tf.Variable ( w_alpha * tf.random_normal ( [ 3 , 3 , 1 , 32 ] ) )
@@ -112,8 +122,8 @@ def cnn ( w_alpha = 0.01 , b_alpha = 0.1 ) :
     dense = tf.nn.relu ( tf.add ( tf.matmul ( dense , w_d ) , b_d ) )
     dense = tf.nn.dropout ( dense , rate = 1 - keep_prob )
 
-    w_out = tf.Variable ( w_alpha * tf.random_normal ( [ 1024 , 4 * 62 ] ) )
-    b_out = tf.Variable ( b_alpha * tf.random_normal ( [ 4 * 62 ] ) )
+    w_out = tf.Variable ( w_alpha * tf.random_normal ( [ 1024 , 4 * set_size ] ) )
+    b_out = tf.Variable ( b_alpha * tf.random_normal ( [ 4 * set_size ] ) )
     out = tf.add ( tf.matmul ( dense , w_out ) , b_out )
 
     return out
@@ -122,9 +132,9 @@ output = cnn ()
 
 loss = tf.reduce_mean ( tf.nn.sigmoid_cross_entropy_with_logits ( logits = output , labels = Y ) )
 optimizer = tf.train.AdamOptimizer ( learning_rate = 1e-3 ).minimize ( loss )
-predict = tf.reshape ( output , [ -1 , 4 , 62 ] )
+predict = tf.reshape ( output , [ -1 , 4 , set_size ] )
 max_predict = tf.argmax ( predict , 2 )
-max_real = tf.argmax ( tf.reshape ( Y , [ -1 , 4 , 62 ] ) , 2 )
+max_real = tf.argmax ( tf.reshape ( Y , [ -1 , 4 , set_size ] ) , 2 )
 
 correct = tf.equal ( max_predict , max_real )
 
@@ -132,6 +142,7 @@ accuracy = tf.reduce_mean ( tf.cast ( correct , tf.float32 ) )
 
 saver = tf.train.Saver ()
 
+# Train conv
 with tf.Session () as sess :
     sess.run ( tf.global_variables_initializer () )
 
@@ -144,7 +155,7 @@ with tf.Session () as sess :
 
         _ , loss_ = sess.run ( [ optimizer , loss ] , feed_dict = { X : batchx , Y : batchy , keep_prob : .75 } )
 
-        print ( "Step: %d  Loss: %f" % ( step , loss_) )
+        print ( "Step: %d  Loss: %f" % (step , loss_) )
 
         if step % 100 == 0 :
             batchx , batchy = getNext ( 100 )
@@ -153,28 +164,33 @@ with tf.Session () as sess :
 
             print ( "Accuracy: %f" % (acc) )
 
-            if acc > .8 :
+            if acc > .9 :
                 saver.save ( sess , "model/crack_capcha.model99" , global_step = step )
                 break
 
-step = 0
-correct = 0
-count = 100
+    # Test
 
-while step < count :
-    with tf.Session () as session :
+    step = 0
+    correct = 0
+    count = 100
+
+    while step < count :
         text , img = generate_text ()
 
         img = cv2.cvtColor ( img , cv2.COLOR_BGR2GRAY )
         img = img.flatten ()
 
-        predict = tf.math.argmax ( tf.reshape ( output , [ - 1 , 4 , 62 ] ) , 2 )
+        predict = tf.math.argmax ( tf.reshape ( output , [ - 1 , 4 , set_size ] ) , 2 )
         label = sess.run ( predict , feed_dict = { X : [ img ] , keep_prob : 1 } )
 
         predict_text = vec2text ( label )
 
+        print ( "step:{} 真实值: {}  预测: {}  预测结果: {}".format ( str ( step ) , text , predict_text ,
+            "正确" if text.lower () == predict_text.lower () else "错误" ) )
+
         if text.lower () == predict_text.lower () :
             correct += 1
-    step += 1
+
+        step += 1
 
 print ( "测试总数: {} 测试准确率: {}".format ( str ( count ) , str ( correct / count ) ) )

@@ -10,15 +10,18 @@ from CNN.MaxPool import MaxPool
 from CNN.Softmax import Softmax
 import numpy as np
 
+# Get train and test images from MNIST dataset
 train_img = mnist.train_images () [ :10000 ]
 train_label = mnist.train_labels () [ :10000 ]
 test_img = mnist.test_images () [ :1000 ]
 test_label = mnist.test_labels() [ :1000 ]
 
+# Create CNNm, maxpool, and softmax layers
 conv = Conv ( 8 )
 pool = MaxPool ()
 sm = Softmax ( 13 * 13 * 8 , 10 )
 
+# Forward process
 def forward ( img , label ) :
     out = conv.forward ( ( img / 255 ) - 0.5 )
     out = pool.forward ( out )
@@ -33,6 +36,7 @@ def forward ( img , label ) :
 
     return out , loss , accuracy
 
+# Train the CNN
 def train ( img , label , rate = 0.005 ) :
     out , loss , accuracy  = forward ( img , label )
 
@@ -65,6 +69,7 @@ for i , ( im , label ) in enumerate ( zip ( train_img , train_label ) ) :
 loss = 0
 correct = 0
 
+# Test
 for img , label in zip ( test_img , test_label ) :
     _ , l , acc = forward ( img , label )
 
