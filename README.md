@@ -1,2 +1,2 @@
-# OCR
-Programs in Python for deep learning (Neural Network)
+# DL
+Practice codes in Python for deep learning (Neural Network)
