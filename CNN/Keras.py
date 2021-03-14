@@ -5,65 +5,19 @@
 # @File: Keras.py
 
 import numpy as np
-import mnist
+from tensorflow.python.keras.datasets import mnist
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D , MaxPooling2D , Dense , Flatten
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.optimizers import SGD
-from PIL import Image
-import os
 
-arr = [ ]
+( train_img , train_label ) , ( test_img , test_label ) = mnist.load_data ()
 
-count = 0
+train_img = np.reshape ( train_img [ :1000 ] / 255 - .5 , ( 1000 , 28 , 28 ) )
+test_img = np.reshape ( test_img [ :100 ] / 255 - .5 , ( 100 , 28 , 28 ) )
 
-train_label = [ ]
-
-# Get train images
-for _ , _ , files in os.walk ( "Training" ) :
-    for file in files :
-        for k in range ( 100 ) :
-            train_img = Image.open ( os.path.join ( "Training" , file ) ).convert ( "L" )
-
-            train_label.append ( file [ : 1 ] )
-
-            if train_img.size [ 0 ] != 28 or train_img.size [ 1 ] != 28 :
-                train_img.resize ( (28 , 28) )
-
-            for i in range ( 28 ) :
-                for j in range ( 28 ) :
-                    pixel = 255 - int ( train_img.getpixel ( (j , i) ) )
-
-                    arr.append ( pixel )
-
-            count += 1
-
-train_img = np.array ( arr ).reshape ( (count , 28 , 28) )
-
-arr = [ ]
-
-count = 0
-
-# Get test images
-for _ , _ , files in os.walk ( "Testset" ) :
-    for file in files :
-        test_img = Image.open ( os.path.join ( "Testset" , file ) ).convert ( "L" )
-
-        if test_img.size [ 0 ] != 28 or test_img.size [ 1 ] != 28 :
-            test_img.resize ( (28 , 28) )
-
-        for i in range ( 28 ) :
-            for j in range ( 28 ) :
-                pixel = 255 - int ( test_img.getpixel ( (j , i) ) )
-
-                arr.append ( pixel )
-
-        count += 1
-
-test_img = np.array ( arr ).reshape ( (count , 28 , 28) )
-
-train_img = train_img / 255 - 0.5
-test_img = test_img / 255 - 0.5
+train_label = train_label [ :1000 ]
+test_label = test_label [ :100 ]
 
 train_img = np.expand_dims ( train_img , 3 )
 test_img = np.expand_dims ( test_img , 3 )
@@ -83,10 +37,11 @@ model.fit (
     train_img ,
     to_categorical ( train_label ) ,
     batch_size = 1 ,
-    epochs = 1 ,
+    epochs = 3 ,
 )
 
 # Test
 prediction = model.predict ( test_img )
 
 print ( np.argmax ( prediction , axis = 1 ) )
+print ( test_label )
