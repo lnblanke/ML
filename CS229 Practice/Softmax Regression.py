@@ -20,43 +20,33 @@ test_label = test_label [ :100 ]
 
 weight = np.random.random ( ( 10 , 28 * 28 ) )
 
-rate = 0.5
+rate = 0.1
 
 init = time.time()
 
 count = 0
 
 while True :
-    predict = []
-
     gradient = np.zeros ( ( 10 , 28 * 28 ) )
-
-    for i in range ( len ( train_label ) ) :
-        predict = np.exp ( np.dot ( weight , train_img [ i ] ) ) / np.sum ( np.exp ( np.dot ( weight , train_img [ i ] ) ) )
-
-        for j in range ( 10 ) :
-            gradient [ j ] += train_img [ i ] * ( ( train_label [ i ] == j ) - predict [ j ] )
-
-    # plt.imshow ( np.reshape ( train_img [ len ( train_label ) - 1] , ( 28 , 28 ) ) )
-    # pylab.show ()
-
-    weight -= rate * -1 * gradient / len ( train_label )
-
     cost = 0
 
     for i in range ( len ( train_label ) ) :
-        predict = np.exp ( np.dot ( weight , train_img [ i ] ) ) / np.sum ( np.exp ( np.dot ( weight , train_img [ i ] ) ) )
+        pred = np.zeros ( 10 )
 
         for j in range ( 10 ) :
-            cost += ( train_label [ i ] == j ) * np.log ( predict [ j ] )
+            pred [ j ] = np.exp ( np.dot ( weight [ j ] , train_img [ i ] ) )
 
-    cost = -1 * cost / len ( train_label )
+        for j in range ( 10 ) :
+            cost += -1 * ( train_label [ i ] == j ) * np.log ( pred [ j ] / np.sum ( pred ) )
+            gradient [ j ] += train_img [ i ] * ( ( train_label [ i ] == j ) - pred [ j ] / np.sum ( pred ) )
+
+    weight -= -1 / len ( train_label ) * rate * gradient
 
     count += 1
 
     print ( "Epoch: %d Loss: %.5f" % ( count , cost ) )
 
-    if cost < .1 :
+    if cost < 500 :
         break
 
 correct = 0
