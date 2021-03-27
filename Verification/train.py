@@ -19,14 +19,14 @@ alphabet = [ 'a' , 'b' , 'c' , 'd' , 'e' , 'f' , 'g' , 'h' , 'i' , 'j' , 'k' , '
 ALPHABET = [ 'A' , 'B' , 'C' , 'D' , 'E' , 'F' , 'G' , 'H' , 'I' , 'J' , 'K' , 'L' , 'M' , 'N' , 'O' , 'P' , 'Q' , 'R' ,
              'S' , 'T' , 'U' , 'V' , 'W' , 'X' , 'Y' , 'Z' ]
 
-set_size = 10
+set_size = 62
 
 X = tf.placeholder ( tf.float32 , [ None , 60 * 160 ] )
 Y = tf.placeholder ( tf.float32 , [ None , 4 * set_size ] )
 keep_prob = tf.placeholder ( tf.float32 )
 
 # Randomly generate verification codes
-def generate_text ( set = number , length = 4 ) :
+def generate_text ( set = number + alphabet + ALPHABET , length = 4 ) :
     image = ImageCaptcha ()
 
     text = ""
