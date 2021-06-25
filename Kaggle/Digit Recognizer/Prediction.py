@@ -61,4 +61,4 @@ prediction = model.predict ( test_img )
 id = np.array ( len ( test_img ) )
 
 df = pd.DataFrame ( { "Label" : np.argmax ( prediction , axis = 1 ) } , index = list ( range ( 1 , len ( test_img ) + 1 ) ) )
-df.to_csv ( "prediction.csv" )
+df.to_csv ( "submission.csv" )

@@ -9,7 +9,7 @@ import numpy as np
 import time
 import matplotlib.pyplot as plt
 
-data = make_regression ( n_samples = 50 , n_features = 2 , bias = 1 )
+data = make_regression ( n_samples = 50 , n_features = 1 , bias = 2 , noise = 15 )
 
 train_data = data [ 0 ] [ : 40 ]
 train_data = np.c_ [ train_data , np.ones ( len ( train_data ) ) ]
@@ -44,7 +44,7 @@ while True :
 
     print ( "Epoch: %d Loss: %.5f" % (count , cost) )
 
-    if cost < 650 :
+    if count > 500 :
         break
 
 mse = np.sum ( ( np.dot ( test_data , weight ) - test_label ) ** 2 )
@@ -52,12 +52,12 @@ mse = np.sum ( ( np.dot ( test_data , weight ) - test_label ) ** 2 )
 print ( "Loss:" , mse / len ( test_label ) )
 print ( "Time: %.5fms" % ( ( time.time() - init ) * 1000 ) )
 
-plt.scatter ( train_data [ : , 0 ] , train_data [ : , 1 ] , c = "black" )
+plt.scatter ( train_data [ : , 0 ] , train_label , c = "black" )
 plt.xlabel ( 'X1' )
 plt.ylabel ( 'X2' )
 
 x = np.arange ( -5 , 5 )
-y = -1 * ( weight [ 2 ] + weight [ 0 ] * x ) / weight [ 1 ]
+y = weight [ 0 ] * x + weight [ 1 ]
 plt.plot ( x , y )
 
 plt.title ( "BGD" )
@@ -86,7 +86,8 @@ while True :
     count += 1
 
     print ( "Epoch: %d Loss: %.5f" % (count , cost) )
-    if cost < 650 :
+
+    if count > 500 :
         break
 
 mse = np.sum ( ( np.dot ( test_data , weight ) - test_label ) ** 2 )
@@ -94,12 +95,12 @@ mse = np.sum ( ( np.dot ( test_data , weight ) - test_label ) ** 2 )
 print ( "Loss:" , mse / len ( test_label ) )
 print ( "Time: %.5fms" % ( ( time.time() - init ) * 1000 ) )
 
-plt.scatter ( train_data [ : , 0 ] , train_data [ : , 1 ] , c = "black" )
+plt.scatter ( train_data [ : , 0 ] , train_label , c = "black" )
 plt.xlabel ( 'X1' )
 plt.ylabel ( 'X2' )
 
 x = np.arange ( -5 , 5 )
-y = -1 * ( weight [ 2 ] + weight [ 0 ] * x ) / weight [ 1 ]
+y = weight [ 0 ] * x + weight [ 1 ]
 plt.plot ( x , y )
 
 plt.title ( "SGD" )
@@ -117,12 +118,12 @@ print ( "Normal Equation:" )
 print ( "Loss:" , mse / len ( test_label ) )
 print ( "Time: %.5fms" % ( ( time.time() - init ) * 1000 ) )
 
-plt.scatter ( train_data [ : , 0 ] , train_data [ : , 1 ] , c = "black" )
+plt.scatter ( train_data [ : , 0 ] , train_label , c = "black" )
 plt.xlabel ( 'X1' )
 plt.ylabel ( 'X2' )
 
 x = np.arange ( -5 , 5 )
-y = -1 * ( weight [ 2 ] + weight [ 0 ] * x ) / weight [ 1 ]
+y = weight [ 0 ] * x + weight [ 1 ]
 plt.plot ( x , y )
 
 plt.title ( "Normal Equation" )
@@ -136,7 +137,7 @@ mse = 0
 
 print ( "Locally Weighted Regression:" )
 
-plt.scatter ( train_data [ : , 0 ] , train_data [ : , 1 ] , c = "black" )
+plt.scatter ( train_data [ : , 0 ] , train_label , c = "black" )
 plt.xlabel ( 'X1' )
 plt.ylabel ( 'X2' )
 
@@ -154,7 +155,9 @@ for i in range ( len ( test_label ) ) :
     bias = np.empty ( len ( train_data ) )
 
     for j in range ( len ( train_data ) ) :
-        bias [ j ] = np.exp ( -1 * np.linalg.norm ( train_label [ j ] - test_label [ i ] ) ** 2 / 1e5 )
+        bias [ j ] = np.exp ( -1 * np.linalg.norm ( train_label [ j ] - test_label [ i ] ) ** 2 )
+
+    count = 0
 
     while True :
         for j in range ( len ( train_data ) ) :
@@ -167,11 +170,13 @@ for i in range ( len ( test_label ) ) :
         for j in range ( len ( train_data ) ) :
             cost [ j ] *= bias [ j ]
 
-        if np.max ( cost ) < 10 :
+        count += 1
+
+        if count > 500 :
             break
 
     x = np.arange ( -5 , 5 )
-    y = -1 * (weight [ 2 ] + weight [ 0 ] * x) / weight [ 1 ]
+    y = weight [ 0 ] * x + weight [ 1 ]
     plt.plot ( x , y )
 
     mse += ( np.dot ( test_data [ i ] , weight ) - test_label [ i ] ) ** 2

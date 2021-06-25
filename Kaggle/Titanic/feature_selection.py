@@ -1,16 +1,17 @@
-# @Time: 2/21/2021
+# @Time: 6/6/2021
 # @Author: lnblanke
 # @Email: fjh314.84@gmail.com
-# @File: Prediction.py
+# @File: feature_selection.py
 
 import pandas as pd
 import numpy as np
 from sklearn.impute import SimpleImputer
-from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler , OneHotEncoder
 from sklearn.compose import ColumnTransformer
-import tensorflow as tf
 from sklearn.decomposition import PCA
+import seaborn
+import matplotlib.pyplot as plt
+from Tools.MI_Score import make_mi_scores
 
 train = pd.read_csv ( "train.csv" )
 test = pd.read_csv ( "test.csv" )
@@ -47,27 +48,9 @@ pca = PCA ( n_components = None )
 train_pca = pd.DataFrame ( pca.fit_transform ( train_data ) )
 test_pca = pd.DataFrame ( pca.transform ( test ) )
 
-train_pca , valid_pca , train_label , valid_label = train_test_split ( train_pca , train_label , train_size = .8 )
+print ( make_mi_scores ( train_pca , train_label , False ) )
 
-model = tf.keras.Sequential ( [
-    tf.keras.layers.Dense ( 8 , activation = "relu" ) ,
-    tf.keras.layers.Dense ( 5 , activation = "relu" ) ,
-    tf.keras.layers.Dense ( 1 , activation = "relu" )
-] )
+train_pca [ "Survived" ] = train.Survived
 
-model.compile ( optimizer = "adam" , loss = "binary_crossentropy" , metrics = [ "accuracy" ] )
-
-model.fit ( train_pca , train_label , epochs = 1000 , batch_size = 1 )
-pred = model.predict ( valid_pca )
-
-acc = 0
-
-for i in range ( 0 , len ( valid_label ) ) :
-    acc += ( ( pred [ i ] >= .5 ) == valid_label.values [ i ] )
-
-print ( acc / len ( valid_label ) )
-
-pred = model.predict ( test_pca )
-
-output = pd.DataFrame ( { "PassengerId" : pd.read_csv ( "test.csv" ).PassengerId , "Survived" : np.argmax ( pred , axis = 1 ) } )
-output.to_csv ( "submission.csv" , index = False )
+seaborn.relplot ( x = 0 , y = 10 , hue = "Survived" , data = train_pca )
+plt.show ()

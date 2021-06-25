@@ -9,7 +9,7 @@ import time
 from sklearn.datasets import make_classification
 import matplotlib.pyplot as plt
 
-data = make_classification ( n_samples = 1200 , n_classes = 2 , n_clusters_per_class = 1 , n_features = 2 , n_redundant = 0 , class_sep =  2 )
+data = make_classification ( n_samples = 1200 , n_classes = 2 , scale = 20 , n_clusters_per_class = 1 , n_features = 2 , n_redundant = 0 , class_sep =  2 )
 
 train_data = data [ 0 ] [ : 1000 ]
 train_data = np.c_ [ train_data , np.ones ( len ( train_data ) ) ]
@@ -41,6 +41,8 @@ while True :
     weight += rate * gradient
     result = sigmoid ( np.dot ( train_data , weight ) )
     correct = 0
+
+    print ( gradient )
 
     for i in range ( len ( train_label ) ) :
         if ( result [ i ] >= 0.5 ) == train_label [ i ] :
