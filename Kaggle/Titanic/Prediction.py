@@ -55,19 +55,20 @@ model = tf.keras.Sequential ( [
     tf.keras.layers.Dense ( 1 , activation = "relu" )
 ] )
 
-model.compile ( optimizer = "adam" , loss = "binary_crossentropy" , metrics = [ "accuracy" ] )
+if __name__ == '__main__':
+    model.compile ( optimizer = "adam" , loss = "binary_crossentropy" , metrics = [ "accuracy" ] )
 
-model.fit ( train_pca , train_label , epochs = 1000 , batch_size = 1 )
-pred = model.predict ( valid_pca )
+    model.fit ( train_pca , train_label , epochs = 1000 , batch_size = 1 )
+    pred = model.predict ( valid_pca )
 
-acc = 0
+    acc = 0
 
-for i in range ( 0 , len ( valid_label ) ) :
-    acc += ( ( pred [ i ] >= .5 ) == valid_label.values [ i ] )
+    for i in range ( 0 , len ( valid_label ) ) :
+        acc += ( ( pred [ i ] >= .5 ) == valid_label.values [ i ] )
 
-print ( acc / len ( valid_label ) )
+    print ( acc / len ( valid_label ) )
 
-pred = model.predict ( test_pca )
+    pred = model.predict ( test_pca )
 
-output = pd.DataFrame ( { "PassengerId" : pd.read_csv ( "test.csv" ).PassengerId , "Survived" : np.argmax ( pred , axis = 1 ) } )
-output.to_csv ( "submission.csv" , index = False )
+    output = pd.DataFrame ( { "PassengerId" : pd.read_csv ( "test.csv" ).PassengerId , "Survived" : np.argmax ( pred , axis = 1 ) } )
+    output.to_csv ( "submission.csv" , index = False )

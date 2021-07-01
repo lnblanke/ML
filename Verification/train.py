@@ -142,55 +142,56 @@ accuracy = tf.reduce_mean ( tf.cast ( correct , tf.float32 ) )
 
 saver = tf.train.Saver ()
 
-# Train conv
-with tf.Session () as sess :
-    sess.run ( tf.global_variables_initializer () )
+if __name__ == '__main__':
+    # Train conv
+    with tf.Session () as sess :
+        sess.run ( tf.global_variables_initializer () )
 
-    step = -1
+        step = -1
 
-    while 1 :
-        step += 1
+        while 1 :
+            step += 1
 
-        batchx , batchy = getNext ( 64 )
+            batchx , batchy = getNext ( 64 )
 
-        _ , loss_ = sess.run ( [ optimizer , loss ] , feed_dict = { X : batchx , Y : batchy , keep_prob : .75 } )
+            _ , loss_ = sess.run ( [ optimizer , loss ] , feed_dict = { X : batchx , Y : batchy , keep_prob : .75 } )
 
-        print ( "Step: %d  Loss: %f" % (step , loss_) )
+            print ( "Step: %d  Loss: %f" % (step , loss_) )
 
-        if step % 100 == 0 :
-            batchx , batchy = getNext ( 100 )
+            if step % 100 == 0 :
+                batchx , batchy = getNext ( 100 )
 
-            acc = sess.run ( accuracy , feed_dict = { X : batchx , Y : batchy , keep_prob : .75 } )
+                acc = sess.run ( accuracy , feed_dict = { X : batchx , Y : batchy , keep_prob : .75 } )
 
-            print ( "Accuracy: %f" % (acc) )
+                print ( "Accuracy: %f" % (acc) )
 
-            if acc > .9 :
-                saver.save ( sess , "model/crack_capcha.model99" , global_step = step )
-                break
+                if acc > .9 :
+                    saver.save ( sess , "model/crack_capcha.model99" , global_step = step )
+                    break
 
-    # Test
+        # Test
 
-    step = 0
-    correct = 0
-    count = 100
+        step = 0
+        correct = 0
+        count = 100
 
-    while step < count :
-        text , img = generate_text ()
+        while step < count :
+            text , img = generate_text ()
 
-        img = cv2.cvtColor ( img , cv2.COLOR_BGR2GRAY )
-        img = img.flatten ()
+            img = cv2.cvtColor ( img , cv2.COLOR_BGR2GRAY )
+            img = img.flatten ()
 
-        predict = tf.math.argmax ( tf.reshape ( output , [ - 1 , 4 , set_size ] ) , 2 )
-        label = sess.run ( predict , feed_dict = { X : [ img ] , keep_prob : 1 } )
+            predict = tf.math.argmax ( tf.reshape ( output , [ - 1 , 4 , set_size ] ) , 2 )
+            label = sess.run ( predict , feed_dict = { X : [ img ] , keep_prob : 1 } )
 
-        predict_text = vec2text ( label )
+            predict_text = vec2text ( label )
 
-        print ( "step:{} 真实值: {}  预测: {}  预测结果: {}".format ( str ( step ) , text , predict_text ,
-            "正确" if text.lower () == predict_text.lower () else "错误" ) )
+            print ( "step:{} 真实值: {}  预测: {}  预测结果: {}".format ( str ( step ) , text , predict_text ,
+                "正确" if text.lower () == predict_text.lower () else "错误" ) )
 
-        if text.lower () == predict_text.lower () :
-            correct += 1
+            if text.lower () == predict_text.lower () :
+                correct += 1
 
-        step += 1
+            step += 1
 
-print ( "测试总数: {} 测试准确率: {}".format ( str ( count ) , str ( correct / count ) ) )
+    print ( "测试总数: {} 测试准确率: {}".format ( str ( count ) , str ( correct / count ) ) )

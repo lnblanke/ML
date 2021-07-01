@@ -59,18 +59,19 @@ def softmax ( x ) :
 
 rnn = recur ( size , 2 )
 
-for epoch in range ( 1000 ) :
-    ls , corr = process_data ( train_data )
+if __name__ == '__main__':
+    for epoch in range ( 1000 ) :
+        ls , corr = process_data ( train_data )
 
-    if (epoch + 1) % 100 == 0 :
-        print ( '--- Epoch %d' % (epoch + 1) )
-        print ( 'Train:\tLoss %.3f | Accuracy: %.3f' % (ls , corr) )
+        if (epoch + 1) % 100 == 0 :
+            print ( '--- Epoch %d' % (epoch + 1) )
+            print ( 'Train:\tLoss %.3f | Accuracy: %.3f' % (ls , corr) )
 
-        test_loss , test_acc = process_data ( test_data , backprop = False )
-        print ( 'Test:\tLoss %.3f | Accuracy: %.3f' % (test_loss , test_acc) )
+            test_loss , test_acc = process_data ( test_data , backprop = False )
+            print ( 'Test:\tLoss %.3f | Accuracy: %.3f' % (test_loss , test_acc) )
 
-inputs = create_input ( "i am very good" )
+    inputs = create_input ( "i am very good" )
 
-out , _ = rnn.forward ( inputs )
+    out , _ = rnn.forward ( inputs )
 
-print ( softmax ( out ) )
+    print ( softmax ( out ) )

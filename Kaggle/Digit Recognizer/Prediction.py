@@ -45,20 +45,21 @@ model = Sequential ( [
     Dense ( 10 , activation = 'softmax' )
 ] )
 
-# Train
-model.compile ( SGD ( lr = .005 ) , loss = 'categorical_crossentropy' , metrics = [ 'accuracy' ] )
+if __name__ == '__main__':
+    # Train
+    model.compile ( SGD ( lr = .005 ) , loss = 'categorical_crossentropy' , metrics = [ 'accuracy' ] )
 
-model.fit (
-    train_img ,
-    to_categorical ( train_label ) ,
-    batch_size = 1 ,
-    epochs = 20 ,
-)
+    model.fit (
+        train_img ,
+        to_categorical ( train_label ) ,
+        batch_size = 1 ,
+        epochs = 20 ,
+    )
 
-# Test
-prediction = model.predict ( test_img )
+    # Test
+    prediction = model.predict ( test_img )
 
-id = np.array ( len ( test_img ) )
+    id = np.array ( len ( test_img ) )
 
-df = pd.DataFrame ( { "Label" : np.argmax ( prediction , axis = 1 ) } , index = list ( range ( 1 , len ( test_img ) + 1 ) ) )
-df.to_csv ( "submission.csv" )
+    df = pd.DataFrame ( { "Label" : np.argmax ( prediction , axis = 1 ) } , index = list ( range ( 1 , len ( test_img ) + 1 ) ) )
+    df.to_csv ( "submission.csv" )

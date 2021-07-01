@@ -52,31 +52,32 @@ def train ( img , label , rate = 0.005 ) :
 loss = 0
 correct = 0
 
-for i , ( im , label ) in enumerate ( zip ( train_img , train_label ) ) :
-    ls  , accuracy = train ( im , label )
+if __name__ == '__main__':
+    for i , ( im , label ) in enumerate ( zip ( train_img , train_label ) ) :
+        ls  , accuracy = train ( im , label )
 
-    loss += ls
-    correct += accuracy
+        loss += ls
+        correct += accuracy
 
-    if ( i + 1 ) % 100 == 0 :
-        print (
-            '[Step %d] Past 100 steps: Average Loss %.3f | Accuracy: %d%%' %
-            (i + 1 , loss / 100 , correct)
-        )
-        loss = 0
-        correct = 0
+        if ( i + 1 ) % 100 == 0 :
+            print (
+                '[Step %d] Past 100 steps: Average Loss %.3f | Accuracy: %d%%' %
+                (i + 1 , loss / 100 , correct)
+            )
+            loss = 0
+            correct = 0
 
-loss = 0
-correct = 0
+    loss = 0
+    correct = 0
 
-# Test
-for img , label in zip ( test_img , test_label ) :
-    _ , l , acc = forward ( img , label )
+    # Test
+    for img , label in zip ( test_img , test_label ) :
+        _ , l , acc = forward ( img , label )
 
-    loss += l
-    correct += acc
+        loss += l
+        correct += acc
 
-num_tests = len ( test_img )
+    num_tests = len ( test_img )
 
-print ( 'Test Loss:' , loss / num_tests )
-print ( 'Test Accuracy:' , correct / num_tests )
+    print ( 'Test Loss:' , loss / num_tests )
+    print ( 'Test Accuracy:' , correct / num_tests )

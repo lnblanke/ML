@@ -13,4 +13,5 @@ data = make_classification ( n_samples = 1000 , n_classes = 2 , n_clusters_per_c
 
 train_data = data [ 0 ] [ : 1000 ]
 
-init = time.time ()
+if __name__ == '__main__' :
+    init = time.time ()

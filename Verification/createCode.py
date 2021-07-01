@@ -10,13 +10,14 @@ import os
 
 set = [ '0' , '1' , '2' , '3' , '4' , '5' , '6' , '7' , '8' , '9' ]
 
-for i in range ( 1000 ) :
-    rd = np.random.rand ( 4 ) * 10
+if __name__ == '__main__':
+    for i in range ( 1000 ) :
+        rd = np.random.rand ( 4 ) * 10
 
-    text = ""
+        text = ""
 
-    for i in rd :
-        text += set [ int ( i ) ]
+        for i in rd :
+            text += set [ int ( i ) ]
 
-    img = ImageCaptcha ()
-    img.write ( text , os.path.join ( "Code Training" , text + ".jpg" ) )
+        img = ImageCaptcha ()
+        img.write ( text , os.path.join ( "Code Training" , text + ".jpg" ) )
