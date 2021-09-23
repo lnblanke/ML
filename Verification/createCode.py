@@ -8,16 +8,16 @@ from captcha.image import ImageCaptcha
 import numpy as np
 import os
 
-set = [ '0' , '1' , '2' , '3' , '4' , '5' , '6' , '7' , '8' , '9' ]
+set = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
 if __name__ == '__main__':
-    for i in range ( 1000 ) :
-        rd = np.random.rand ( 4 ) * 10
+    for i in range(1000):
+        rd = np.random.rand(4) * 10
 
         text = ""
 
-        for i in rd :
-            text += set [ int ( i ) ]
+        for i in rd:
+            text += set[int(i)]
 
-        img = ImageCaptcha ()
-        img.write ( text , os.path.join ( "Code Training" , text + ".jpg" ) )
+        img = ImageCaptcha()
+        img.write(text, os.path.join("Code Training", text + ".jpg"))
