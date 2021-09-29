@@ -5,7 +5,7 @@
 # @File: ann.py
 
 import numpy as np
-from tools import *
+from neural_network.function import *
 
 # Weights
 w1 = np.random.normal()

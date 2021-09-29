@@ -20,10 +20,10 @@ All the CV models in this directory are constructed based on TensorFlow 2. The d
 
 - Computer Vision
   - [AlexNet](AlexNet)
-  - [VGG](VGG.py)
-  - [GoogLeNet](GoogLeNet.py)
-  - [Xception](Xception.py)
-  - [ResNet](ResNet.py)
+  - [VGG](VGG)
+  - [GoogLeNet](GoogLeNet)
+  - [Xception](Xception)
+  - [ResNet](ResNet)
 
 ****
 
@@ -32,7 +32,7 @@ All the CV models in this directory are constructed based on TensorFlow 2. The d
 | Category | Model Name | Implemented Paper | Dependent Libraries |
 | -------- | ---------- | ----------------- | ------------------- |
 | Image Classification | [AlexNet](AlexNet) | [ImageNet Classification with Deep Convolutional Neural Networks](https://papers.nips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf) | Tensorflow |
-| Image Classification | [VGG](VGG.py) | [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/pdf/1409.1556.pdf) | Tensorflow |
-| Image Classification | [GoogLeNet](GoogLeNet.py) | [Going Deeper with Convolutions](https://arxiv.org/pdf/1409.4842.pdf) | Tensorflow |
-| Image Classification | [Xception](Xception.py) | [Xception: Deep Learning with Depthwise Separable Convolutions](https://arxiv.org/pdf/1610.02357.pdf) | Tensorflow |
-| Image Classification | [ResNet](ResNet.py) | [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/pdf/1409.1556.pdf) | Tensorflow |
+| Image Classification | [VGG](VGG) | [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/pdf/1409.1556.pdf) | Tensorflow |
+| Image Classification | [GoogLeNet](GoogLeNet) | [Going Deeper with Convolutions](https://arxiv.org/pdf/1409.4842.pdf) | Tensorflow |
+| Image Classification | [Xception](Xception) | [Xception: Deep Learning with Depthwise Separable Convolutions](https://arxiv.org/pdf/1610.02357.pdf) | Tensorflow |
+| Image Classification | [ResNet](ResNet) | [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/pdf/1409.1556.pdf) | Tensorflow |

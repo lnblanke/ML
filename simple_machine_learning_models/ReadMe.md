@@ -6,29 +6,39 @@ The implement of basic machine learning models
 
 ### Intro
 
-In this directory, we implement some of the simplest machine learning models for both supervised and unsupervised learning 
+In this directory, we implement some of the simplest machine learning models for both supervised and unsupervised learning. These white-box models, like linear regression and decision tree, are easy to be understood and implemented only with simple libraries like NumPy. The list of all the implemented models are [below](#list)
 
 ****
 
 ### Dependence
 
-All the neural networks implemented in this directory are simply constructed with NumPy, but for CNN, we import MNIST library to download the data of MNIST dataset. Meanwhile, we also use Keras to create a CNN as a comparison to our model.
+All the models in this directory are implemented only with NumPy, but we import [functions](../tools/show_prediction.py) in the [tools](../tools) directory to visual visual the data and compare the prediction we make with the original labels of the data, and [functions](../tools/get_data.py) that uses function in Scikit-Learn to generate random data and label for training and test. The dependence for these functions can be found in the [README file](../tools/README.md) of the directory. Apparently, these libraries are not required as long as the data can be fed into the models.
 
 ****
 
 ### Structure of Directory
 
-- Neural Network
-  - [ANN](ANN)
-  - [CNN](CNN)
-  - [RNN](RNN)
+- Simple Machine Learning Models
+  - [Decision Tree](decision_tree)
+  - [GDA](GDA)
+  - [K-Means](k_means)
+  - [Linear Regression](linear_regression)
+  - [Logistic Regression](logistic_regression)
+  - [Naive Bayes](naive_bayes)
+  - [Random Forest](random_forest)
+  - [Softmax Regression](softmax_regression)
 
 ****
 
 <h3 id = "list"> List of Implementations </h3>
 
-| Block Name | Original Paper | Dependent Libraries |
+| Model Type | Model Name | Dependent Libraries |
 | -------- | ---------- | ----------------- | ------------------- |
-| [Artificial Neural Network](ann) | | NumPy |
-| [Convolutional Neural Network](cnn) | [Gradient-Based Learning Applied to Document Recognition](http://yann.lecun.com/exdb/publis/pdf/lecun-01a.pdf) | NumPy, MNIST, (Keras) |
-| [Recursive Neural Network](rnn) | [Learning Internal Representations by Error Propagation](https://apps.dtic.mil/dtic/tr/fulltext/u2/a164453.pdf) | NumPy |
+| Classification | [Decision Tree](decision_tree) | NumPy, SciPy |
+| Classification | [GDA](GDA) | NumPy |
+| Unsupervised Clustering |  [K-Means](k_means) | NumPy |
+| Regression | [Linear Regression](linear_regression) | NumPy, Matplotlib |
+| Classification | [Logistic Regression](logistic_regression) | NumPy |
+| Classification | [Naive Bayes](naive_bayes) | NumPy |
+| Classification | [Random Forest](random_forest) | NumPy, [Decision Tree](decision_tree) |
+| Classification | [Softmax Regression](softmax_regression) | Numpy |
