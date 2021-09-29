@@ -7,14 +7,14 @@
 from tools import *
 import time
 import numpy as np
-from logistic_regression import LR
+from logistic_regression import LogisticRegression
 
 if __name__ == '__main__':
     init = time.time()
 
     train_data, test_data, train_label, test_label = get_classification_data(sep = 4)
 
-    lr = LR(len(train_data[0]))
+    lr = LogisticRegression(len(train_data[0]))
     lr.train(train_data, train_label)
     pred = lr.predict(test_data)
 

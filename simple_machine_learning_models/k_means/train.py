@@ -6,14 +6,14 @@
 
 from tools import *
 import time
-from kmeans import kmeans
+from kmeans import KMeans
 
 if __name__ == '__main__':
     init = time.time()
 
     data, label = get_classification_data(sep = 4, supervised = False)
 
-    k = kmeans(2)
+    k = KMeans(2)
     pred = k.train(data)
 
     print("Time: %.5fms" % ((time.time() - init) * 1000))

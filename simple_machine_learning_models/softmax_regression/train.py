@@ -7,7 +7,7 @@
 from tools import *
 import time
 import numpy as np
-from softmax_regression import SR
+from softmax_regression import SoftmaxRegression
 
 n_class = 4
 
@@ -16,7 +16,7 @@ if __name__ == '__main__':
 
     train_data, test_data, train_label, test_label = get_classification_data(sep = 3, classes = n_class)
 
-    sr = SR(len(train_data[0]), classes = n_class)
+    sr = SoftmaxRegression(len(train_data[0]), n_class)
     sr.train(train_data, train_label)
     pred = sr.predict(test_data)
 

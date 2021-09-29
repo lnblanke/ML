@@ -5,4 +5,5 @@
 
 from .get_data import *
 from .show_prediction import show
-from .MI_Score import make_mi_scores, mutual_info_regression
+from .MI_Score import *
+from .function import *

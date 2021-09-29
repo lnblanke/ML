@@ -7,14 +7,14 @@
 from tools import *
 import time
 import numpy as np
-from naive_bayes import NBC
+from naive_bayes import NaiveBayes
 
 if __name__ == '__main__':
     init = time.time()
 
     train_data, test_data, train_label, test_label = get_classification_data(sep = 4)
 
-    nbc = NBC(len(train_data[0]))
+    nbc = NaiveBayes(len(train_data[0]))
     nbc.train(train_data, train_label)
     pred = nbc.predict(test_data)
 

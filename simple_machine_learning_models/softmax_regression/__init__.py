@@ -3,4 +3,4 @@
 # @Email: fjh314.84@gmail.com
 # @File: __init__.py.py
 
-from .softmax_regression import SR
+from .softmax_regression import SoftmaxRegression

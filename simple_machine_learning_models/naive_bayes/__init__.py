@@ -3,4 +3,4 @@
 # @Email: fjh314.84@gmail.com
 # @File: __init__.py.py
 
-from .naive_bayes import NBC
+from .naive_bayes import NaiveBayes

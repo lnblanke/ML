@@ -2,20 +2,20 @@
 # @Time: 9/6/2021
 # @Author: lnblanke
 # @Email: fjh314.84@gmail.com
-# @File: BGD.py
+# @File: normal_equation.py
 
 import numpy as np
 
-class NE:
-    def __init__(self, features):
-        self.features = features
-        self.weight = np.random.rand(self.features)
+class NormalEquation:
+    def __init__(self, n_feature):
+        self.n_feature = n_feature
+        self.weight = np.random.rand(self.n_feature)
 
-    def train(self, train_data, train_label):
-        self.weight = np.dot(np.dot(np.linalg.inv(np.dot(train_data.transpose(), train_data)), train_data.transpose()),
-            train_label)
+    def train(self, train_x, train_y):
+        self.weight = np.dot(np.dot(np.linalg.inv(np.dot(train_x.transpose(), train_x)), train_x.transpose()),
+            train_y)
 
-    def predict(self, test_data):
-        pred = np.dot(test_data, self.weight)
+    def predict(self, test_x):
+        pred = np.dot(test_x, self.weight)
 
         return pred

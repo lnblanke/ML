@@ -6,39 +6,39 @@
 
 import numpy as np
 
-class kmeans:
+class KMeans:
     def __init__(self, cluster):
-        self.num_clusters = cluster
+        self.n_clusters = cluster
 
-    def train(self, train_data):
-        p = np.zeros((self.num_clusters, len(train_data[0])))
+    def train(self, train_x):
+        p = np.zeros((self.n_clusters, len(train_x[0])))
 
-        for i in range(self.num_clusters):
-            p[i] = train_data[i]
+        for i in range(self.n_clusters):
+            p[i] = train_x[i]
 
-        color = np.zeros(len(train_data))
+        color = np.zeros(len(train_x))
 
         count = 0
 
         _cost = 0
 
         while True:
-            for i in range(len(train_data)):
-                color[i] = np.argmin([np.linalg.norm(train_data[i] - p[0]), np.linalg.norm(train_data[i] - p[1])])
+            for i in range(len(train_x)):
+                color[i] = np.argmin([np.linalg.norm(train_x[i] - p[0]), np.linalg.norm(train_x[i] - p[1])])
 
-            for i in range(self.num_clusters):
+            for i in range(self.n_clusters):
                 up = 0
                 down = 0
-                for j in range(len(train_data)):
-                    up += (color[j] == i) * train_data[j]
+                for j in range(len(train_x)):
+                    up += (color[j] == i) * train_x[j]
                     down += (color[j] == i)
 
                 p[i] = up / down
 
             cost = 0
             count += 1
-            for i in range(len(train_data)):
-                cost += np.linalg.norm(train_data[i] - p[int(color[i])])
+            for i in range(len(train_x)):
+                cost += np.linalg.norm(train_x[i] - p[int(color[i])])
 
             print("Epoch: %d Loss: %.5f" % (count, cost))
 

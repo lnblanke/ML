@@ -6,16 +6,16 @@
 
 from scipy.stats import mode
 import numpy as np
-from tree_node import TreeNode
+from .tree_node import TreeNode
 
-class DT:
-    def __init__(self, features, max_depth):
-        self.features = features
+class DecisionTree:
+    def __init__(self, n_feature, max_depth):
+        self.n_feature = n_feature
         self.max_depth = max_depth
         self.tree = [TreeNode(None, None, None)] * (2 ** (self.max_depth + 1))
 
     def _build_tree(self, layer, node, data, label):
-        if layer == self.max_depth:
+        if np.sum(label) == len(label) or np.sum(label) == 0 or layer == self.max_depth:
             self.tree[node] = TreeNode(None, None, mode(label)[0])
             return
 
@@ -23,7 +23,7 @@ class DT:
         best_thres = 0
         best_loss = 1e5
 
-        for feature in range(self.features):
+        for feature in range(self.n_feature):
             num_left = [0, 0]
             num_right = [np.sum(label == cls) for cls in range(2)]
 
@@ -41,24 +41,24 @@ class DT:
                 if loss < best_loss:
                     best_loss = loss
                     best_feature = feature
-                    best_thres = (thres[i + 1] - thres[i]) / 2
+                    best_thres = (thres[i + 1] + thres[i]) / 2
 
         self.tree[node] = TreeNode(best_feature, best_thres, mode(label)[0])
 
-        left_data = np.array([data[i] for i in range(len(data)) if (data[i][best_feature] < best_thres)])
-        right_data = np.array([data[i] for i in range(len(data)) if (data[i][best_feature] >= best_thres)])
-        left_label = np.array([label[i] for i in range(len(data)) if (data[i][best_feature] < best_thres)])
-        right_label = np.array([label[i] for i in range(len(data)) if (data[i][best_feature] >= best_thres)])
+        left_x = np.array([data[i] for i in range(len(data)) if (data[i][best_feature] < best_thres)])
+        right_x = np.array([data[i] for i in range(len(data)) if (data[i][best_feature] >= best_thres)])
+        left_y = np.array([label[i] for i in range(len(data)) if (data[i][best_feature] < best_thres)])
+        right_y = np.array([label[i] for i in range(len(data)) if (data[i][best_feature] >= best_thres)])
 
-        if len(left_data) == 0 or len(right_data) == 0:
+        if len(left_y) == 0 or len(right_y) == 0:
             self.tree[node] = TreeNode(None, None, mode(label)[0])
             return
 
-        self._build_tree(layer + 1, node * 2, left_data, left_label)
-        self._build_tree(layer + 1, node * 2 + 1, right_data, right_label)
+        self._build_tree(layer + 1, node * 2, left_x, left_y)
+        self._build_tree(layer + 1, node * 2 + 1, right_x, right_y)
 
     def train(self, train_x, train_y):
-        self._build_tree(1, 1, train_x, train_y)
+        self._build_tree(0, 1, train_x, train_y)
 
     def _classify(self, data, node):
         if self.tree[node].feature == None:
@@ -68,13 +68,13 @@ class DT:
         thres = self.tree[node].thres
         pred = np.zeros(len(data))
 
-        left_data = [data[i] for i in range(len(data)) if (data[i][feature]) < thres]
+        left_x = [data[i] for i in range(len(data)) if (data[i][feature]) < thres]
         left_idx = [i for i in range(len(data)) if (data[i][feature]) < thres]
-        right_data = [data[i] for i in range(len(data)) if (data[i][feature]) >= thres]
+        right_x = [data[i] for i in range(len(data)) if (data[i][feature]) >= thres]
         right_idx = [i for i in range(len(data)) if (data[i][feature]) >= thres]
 
-        left_pred = self._classify(left_data, node * 2)
-        right_pred = self._classify(right_data, node * 2 + 1)
+        left_pred = self._classify(left_x, node * 2)
+        right_pred = self._classify(right_x, node * 2 + 1)
 
         for i in range(len(left_idx)):
             pred[left_idx[i]] = left_pred[i]
