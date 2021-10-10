@@ -35,9 +35,9 @@ All the models in this directory are implemented only with NumPy, but we import 
 <h3 id = "list"> List of Implementations </h3>
 
 | Model Type | Model Name | Dependent Libraries |
-| -------- | ---------- | ----------------- | ------------------- |
-| Classification | [AdaBoost](models/ada_boost) | NumPy, SciPy |
-| Classification | [Decision Tree](models/decision_tree) | NumPy, [Decision Tree](models/decision_tree) |
+| ---------- | ---------- | ------------------- | 
+| Classification | [AdaBoost](models/ada_boost) | NumPy, [Decision Tree](models/decision_tree) |
+| Classification | [Decision Tree](models/decision_tree) | NumPy, SciPy |
 | Classification | [GDA](models/gaussian) | NumPy |
 | Unsupervised Clustering |  [K-Means](models/k_means) | NumPy |
 | Regression | [Linear Regression](models/linear_regression) | NumPy, Matplotlib |

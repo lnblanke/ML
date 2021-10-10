@@ -36,10 +36,10 @@ Most implementations require dependence of NumPy, Scikit-Learn, Tensorflow, and 
 <h3 id = "list"> List of Implementations </h3>
 
 | Category | Model Type | Directory |
-| -------- | ---------- | ----------------- | ------------------- |
-| Computer Vision | Image Classification | [Computer Vision](cv)
-| Neural Network | Basic Neural Network | [Neural Network](neural_network)
-| Simple Machine Learning | Classification | [Simple Machine Learning Models](simple_machine_learning_models)
-| Simple Machine Learning | Regression | [Simple Machine Learning Models](simple_machine_learning_models)
-| Application | Face Recognition | [Face Recognition](FaceRecog)
-| Application | Verification Code Recognition | [Verification Code](Verification)
+| -------- | ---------- | --------- |
+| Computer Vision | Image Classification | [Computer Vision](cv) |
+| Neural Network | Basic Neural Network | [Neural Network](neural_network) |
+| Simple Machine Learning | Classification | [Simple Machine Learning Models](simple_machine_learning_models) |
+| Simple Machine Learning | Regression | [Simple Machine Learning Models](simple_machine_learning_models) |
+| Application | Face Recognition | [Face Recognition](FaceRecog) |
+| Application | Verification Code Recognition | [Verification Code](Verification) |
