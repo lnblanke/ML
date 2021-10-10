@@ -5,6 +5,7 @@
 # @File: show_prediction.py
 
 import matplotlib.pyplot as plt
+import numpy as np
 
 color = ["red", "green", "blue", "yellow", "purple", "black", "pink"]
 
@@ -27,5 +28,17 @@ def show(test_data, pred, test_label, model_name):
     plt.xlabel('X1')
     plt.ylabel('X2')
     plt.title("Real Labels")
+
+    plt.show()
+
+def show_trendline(test_data, test_label, model, model_name):
+    plt.scatter(np.reshape(np.arange(-5, 5, .01), (-1, 1)),
+        model.predict(np.reshape(np.arange(-5, 5, .01), (-1, 1))), c = "red", s = 1)
+
+    plt.scatter(test_data[:, 0], test_label, c = "black")
+    plt.xlabel('X1')
+    plt.ylabel('X2')
+
+    plt.title(model_name)
 
     plt.show()

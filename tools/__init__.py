@@ -4,6 +4,5 @@
 # @File: __init__.py
 
 from .get_data import *
-from .show_prediction import show
-from .MI_Score import *
-from .function import *
+from .show_prediction import *
+from .MI_Score import  *

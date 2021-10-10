@@ -19,14 +19,16 @@ All the models in this directory are implemented only with NumPy, but we import 
 ### Structure of Directory
 
 - Simple Machine Learning Models
-  - [Decision Tree](decision_tree)
-  - [GDA](GDA)
-  - [K-Means](k_means)
-  - [Linear Regression](linear_regression)
-  - [Logistic Regression](logistic_regression)
-  - [Naive Bayes](naive_bayes)
-  - [Random Forest](random_forest)
-  - [Softmax Regression](softmax_regression)
+  - [models](models)
+    - [AdaBoost](models/ada_boost)
+    - [Decision Tree](models/decision_tree)
+    - [GDA](models/gaussian)
+    - [K-Means](models/k_means)
+    - [Linear Regression](models/linear_regression)
+    - [Logistic Regression](models/logistic_regression)
+    - [Naive Bayes](models/naive_bayes)
+    - [Random Forest](models/random_forest)
+    - [Softmax Regression](models/softmax_regression)
 
 ****
 
@@ -34,11 +36,12 @@ All the models in this directory are implemented only with NumPy, but we import 
 
 | Model Type | Model Name | Dependent Libraries |
 | -------- | ---------- | ----------------- | ------------------- |
-| Classification | [Decision Tree](decision_tree) | NumPy, SciPy |
-| Classification | [GDA](GDA) | NumPy |
-| Unsupervised Clustering |  [K-Means](k_means) | NumPy |
-| Regression | [Linear Regression](linear_regression) | NumPy, Matplotlib |
-| Classification | [Logistic Regression](logistic_regression) | NumPy |
-| Classification | [Naive Bayes](naive_bayes) | NumPy |
-| Classification | [Random Forest](random_forest) | NumPy, [Decision Tree](decision_tree) |
-| Classification | [Softmax Regression](softmax_regression) | Numpy |
+| Classification | [AdaBoost](models/ada_boost) | NumPy, SciPy |
+| Classification | [Decision Tree](models/decision_tree) | NumPy, [Decision Tree](models/decision_tree) |
+| Classification | [GDA](models/gaussian) | NumPy |
+| Unsupervised Clustering |  [K-Means](models/k_means) | NumPy |
+| Regression | [Linear Regression](models/linear_regression) | NumPy, Matplotlib |
+| Classification | [Logistic Regression](models/logistic_regression) | NumPy |
+| Classification | [Naive Bayes](models/naive_bayes) | NumPy |
+| Classification | [Random Forest](models/random_forest) | NumPy, [Decision Tree](models/decision_tree) |
+| Classification | [Softmax Regression](models/softmax_regression) | Numpy |
