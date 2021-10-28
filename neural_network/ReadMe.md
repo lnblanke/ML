@@ -34,7 +34,7 @@ All the neural networks implemented in this directory are simply constructed wit
 <h3 id = "list"> List of Implementations </h3>
 
 | Block Name | Original Paper | Dependent Libraries |
-| -------- | ---------- | ----------------- | ------------------- |
+| ---------- | -------------- | ------------------- |
 | [Artificial Neural Network](ann) | | NumPy |
 | [Convolutional Neural Network](cnn) | [Gradient-Based Learning Applied to Document Recognition](http://yann.lecun.com/exdb/publis/pdf/lecun-01a.pdf) | NumPy, MNIST, (Keras) |
 | [Recursive Neural Network](rnn) | [Learning Internal Representations by Error Propagation](https://apps.dtic.mil/dtic/tr/fulltext/u2/a164453.pdf) | NumPy |
