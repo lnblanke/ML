@@ -3,4 +3,5 @@
 # @Email: fjh314.84@gmail.com
 # @File: __init__.py
 
-from .DecisionTree import DecisionTree
+from .DecisionTreeClassification import DecisionTreeClassification
+from .DecisionTreeRegression import DecisionTreeRegression

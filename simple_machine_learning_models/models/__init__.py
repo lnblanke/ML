@@ -4,8 +4,9 @@
 # @File: __init__.py.py
 
 from .ada_boost import AdaBoost
-from .decision_tree import DecisionTree
+from .decision_tree import DecisionTreeRegression, DecisionTreeClassification
 from .gaussian import GDA
+from .gradient_boost import GradBoost
 from .k_means import KMeans
 from .linear_regression import LinearRegression
 from .logistic_regression import LogisticRegression
@@ -15,8 +16,10 @@ from .softmax_regression import SoftmaxRegression
 
 models = [
     AdaBoost,
-    DecisionTree,
+    DecisionTreeClassification,
+    DecisionTreeRegression,
     GDA,
+    GradBoost,
     KMeans,
     LinearRegression,
     LogisticRegression,
@@ -27,8 +30,10 @@ models = [
 
 supervised_models = [
     AdaBoost,
-    DecisionTree,
+    DecisionTreeClassification,
+    DecisionTreeRegression,
     GDA,
+    GradBoost,
     LinearRegression,
     LogisticRegression,
     NaiveBayes,
@@ -42,7 +47,7 @@ unsupervised_models = [
 
 classification_models = [
     AdaBoost,
-    DecisionTree,
+    DecisionTreeClassification,
     GDA,
     LogisticRegression,
     NaiveBayes,
@@ -51,5 +56,7 @@ classification_models = [
 ]
 
 regression_models = [
+    DecisionTreeRegression,
+    GradBoost,
     LinearRegression
 ]

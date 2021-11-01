@@ -2,13 +2,13 @@
 # @Time: 9/6/2021
 # @Author: lnblanke
 # @Email: fjh314.84@gmail.com
-# @File: DecisionTree.py
+# @File: DecisionTreeClassification.py
 
 from scipy.stats import mode
 import numpy as np
 from .tree_node import TreeNode
-class DecisionTree:
-    name = "Decision Tree"
+class DecisionTreeClassification:
+    name = "Decision Tree for Classification"
 
     def __init__(self, n_feature, max_depth):
         self.n_feature = n_feature

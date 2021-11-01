@@ -29,8 +29,7 @@ class Dense:
         return self.output
 
     def backprop(self, dy_dx):
-        print(dy_dx.shape, np.matrix(self.active_func_dev(self.output)).shape, np.transpose(self.weight).shape)
-        dev = np.tranpose(dy_dx) * np.matrix(self.active_func_dev(self.output)) * np.transpose(self.weight)
+        dev = np.transpose(dy_dx) * np.matrix(self.active_func_dev(self.output)) * np.transpose(self.weight)
 
         self.weight = self.weight - self.learning_rate * dy_dx * self.active_func_dev(self.output) * self.input
         self.bias -= self.learning_rate * dy_dx * self.active_func_dev(self.output)

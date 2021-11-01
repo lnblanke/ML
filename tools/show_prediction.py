@@ -32,10 +32,9 @@ def show(test_data, pred, test_label, model_name):
     plt.show()
 
 def show_trendline(test_data, test_label, model, model_name):
+    plt.scatter(test_data[:, 0], test_label, c = "black")
     plt.scatter(np.reshape(np.arange(-5, 5, .01), (-1, 1)),
         model.predict(np.reshape(np.arange(-5, 5, .01), (-1, 1))), c = "red", s = 1)
-
-    plt.scatter(test_data[:, 0], test_label, c = "black")
     plt.xlabel('X1')
     plt.ylabel('X2')
 

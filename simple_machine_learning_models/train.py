@@ -35,8 +35,12 @@ if __name__ == '__main__':
 
     init = time.time()
 
-    if model_selected is DecisionTree:
+    if model_selected is DecisionTreeClassification:
         model = model_selected(n_features, max_depth)
+    elif model_selected is DecisionTreeRegression:
+        model = model_selected(1, max_depth // 3)
+    elif model_selected is GradBoost:
+        model = model_selected(1)
     elif model_selected is RandomForest:
         model = model_selected(n_features, n_trees, max_depth // 2)
     elif model_selected is SoftmaxRegression:
@@ -90,10 +94,12 @@ if __name__ == '__main__':
             model.train(train_x, train_y)
             pred = model.predict(test_x)
 
-            print("Accuracy: %.2f" % (np.sum(pred == test_y) / len(test_y) * 100) + "%")
+            mse = np.sum((pred - test_y) ** 2)
+
+            print("Loss:", mse / len(test_y))
             print("Time: %.5fms" % ((time.time() - init) * 1000))
 
-            show_trendline(test_x, pred, model, model.name)
+            show_trendline(test_x, test_y, model, model.name)
     elif not supervised:
         x, y = get_classification_data(samples = n_samples, features = n_features, sep = 1.5, supervised = False)
 

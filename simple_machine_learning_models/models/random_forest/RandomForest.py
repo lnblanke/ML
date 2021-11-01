@@ -4,7 +4,7 @@
 # @File: RandomForest.py
 import numpy as np
 
-from simple_machine_learning_models.models.decision_tree import DecisionTree
+from simple_machine_learning_models.models.decision_tree import DecisionTreeClassification
 
 class RandomForest:
     name = "Random Forest"
@@ -13,7 +13,10 @@ class RandomForest:
         self.n_feature = n_feature
         self.n_trees = n_trees
         self.max_depth = max_depth
-        self.trees = [DecisionTree(self.n_feature, self.max_depth)] * n_trees
+        self.trees = []
+
+        for i in range(self.n_trees):
+            self.trees.append(DecisionTreeClassification(self.n_feature, self.max_depth))
 
     def _bootstrap(self, data, label):
         indice = np.arange(len(data))
