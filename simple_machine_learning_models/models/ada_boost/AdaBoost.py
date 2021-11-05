@@ -10,13 +10,14 @@ from ..decision_tree import DecisionTreeClassification
 class AdaBoost:
     name = "AdaBoost"
 
-    def __init__(self, n_feature, n_classifier = 10, learning_rate = .01):
+    def __init__(self, n_feature, n_classifier = 10, max_depth = 1, learning_rate = .5):
         self.n_feature = n_feature
         self.n_classifier = n_classifier
         self.classifiers = []
+        self.max_depth = max_depth
 
         for i in range(n_classifier):
-            self.classifiers.append(DecisionTreeClassification(self.n_feature, 1))
+            self.classifiers.append(DecisionTreeClassification(self.n_feature, self.max_depth))
 
         self.weight = np.zeros(n_classifier)
         self.learning_rate = learning_rate
@@ -33,9 +34,7 @@ class AdaBoost:
 
             alpha = self.learning_rate * np.log((1 - error_rate) / error_rate)
 
-            for j in range(len(weights)):
-                if pred[j] != train_y[j]:
-                    weights[j] = weights[j] * np.exp(alpha)
+            weights *= np.exp(alpha * (pred != train_y))
 
             self.weight[i] = alpha
 

@@ -9,7 +9,7 @@ from simple_machine_learning_models.models.decision_tree import DecisionTreeClas
 class RandomForest:
     name = "Random Forest"
 
-    def __init__(self, n_feature, n_trees, max_depth):
+    def __init__(self, n_feature, n_trees, max_depth = 1):
         self.n_feature = n_feature
         self.n_trees = n_trees
         self.max_depth = max_depth

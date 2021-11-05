@@ -27,16 +27,18 @@ class DecisionTreeClassification:
         for feature in range(self.n_feature):
             num_left = [0, 0]
 
-            num_right = [np.dot(np.transpose(weight), label == cls) for cls in range(2)]
+            num_right = [0, 0]
+            for i in range(len(weight)):
+                num_right[label[i]] += weight[i]
 
-            thres, cls = zip(*sorted(zip(data[:, feature], label)))
+            thres, cls, w = zip(*sorted(zip(data[:, feature], label, weight)))
 
             for i in range(len(label) - 1):
-                num_left[cls[i]] += weight[i]
-                num_right[cls[i]] -= weight[i]
+                num_left[cls[i]] += w[i]
+                num_right[cls[i]] -= w[i]
 
-                gini_left = 1 - np.sum((num / (i + 1)) ** 2 for num in num_left)
-                gini_right = 1 - np.sum((num / (len(label) - i - 1)) ** 2 for num in num_right)
+                gini_left = 1 - np.sum((num / np.sum(num_left)) ** 2 for num in num_left)
+                gini_right = 1 - np.sum((num / np.sum(num_right)) ** 2 for num in num_right)
 
                 loss = (i + 1) / len(label) * gini_left + (len(label) - i - 1) / len(label) * gini_right
 

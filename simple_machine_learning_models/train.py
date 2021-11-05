@@ -18,7 +18,6 @@ n_trees = 10 # # of trees for random forest
 if __name__ == '__main__':
     while 1:
         name = input("Please input the model to train: ")
-
         model_selected = None
 
         for m in models:
@@ -42,7 +41,7 @@ if __name__ == '__main__':
     elif model_selected is GradBoost:
         model = model_selected(1)
     elif model_selected is RandomForest:
-        model = model_selected(n_features, n_trees, max_depth // 2)
+        model = model_selected(n_features, n_trees)
     elif model_selected is SoftmaxRegression:
         model = model_selected(n_features, n_classes)
     elif model_selected is not LinearRegression:
