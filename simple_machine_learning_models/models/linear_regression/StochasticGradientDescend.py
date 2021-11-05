@@ -5,14 +5,18 @@
 # @File: StochasticGradientDescend.py
 
 import numpy as np
+from ..Regressor import Regressor
 
-class StochasticGradientDescend:
-    def __init__(self, n_feature, learning_rate = .1):
-        self.n_feature = n_feature
-        self.weight = np.random.rand(self.n_feature)
+
+class StochasticGradientDescend(Regressor):
+    name = "stochastic gradient descend"
+
+    def __init__(self, n_features, learning_rate = .1):
+        super().__init__(n_features)
+        self.weight = np.random.rand(self.n_features)
         self.rate = learning_rate
 
-    def train(self, train_x, train_y):
+    def train(self, train_x, train_y, verbose = 1):
         count = 0
         prev_loss = 0
 
@@ -21,12 +25,12 @@ class StochasticGradientDescend:
             gradient = (np.dot(train_x[index], self.weight) - train_y[index]) * train_x[index]
 
             self.weight -= self.rate * gradient
-
             loss = 0.5 * np.sum((np.dot(train_x, self.weight) - train_y) ** 2)
 
             count += 1
 
-            print("Epoch: %d Loss: %.5f" % (count, loss))
+            if verbose != 0:
+                print("Epoch: %d Loss: %.5f" % (count, loss))
 
             if np.abs(loss - prev_loss) < 1:
                 break

@@ -5,14 +5,16 @@
 # @File: NaiveBayes.py
 
 import numpy as np
+from ..Classifier import Classifier
 
-class NaiveBayes:
-    name = "Naive Bayes"
 
-    def __init__(self, n_feature):
-        self.n_feature = n_feature
-        self.phi_j_y_1 = np.ones((self.n_feature, 20))
-        self.phi_j_y_0 = np.ones((self.n_feature, 20))
+class NaiveBayes(Classifier):
+    name = "naive Bayes"
+
+    def __init__(self, n_features):
+        super().__init__(n_features)
+        self.phi_j_y_1 = np.ones((self.n_features, 20))
+        self.phi_j_y_0 = np.ones((self.n_features, 20))
 
     def train(self, train_x, train_y):
         pos = 10

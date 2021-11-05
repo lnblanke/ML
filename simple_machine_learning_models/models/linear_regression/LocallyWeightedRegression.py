@@ -5,27 +5,47 @@
 # @File: LocallyWeightedRegression.py
 
 import numpy as np
-from .NormalEquation import NormalEquation
+from ..Regressor import Regressor
 
-class LocallyWeightedRegression:
-    def __init__(self, n_feature):
-        self.n_feature = n_feature
-        self.weight = np.random.rand(self.n_feature)
 
-    def train(self, train_x, train_y):
+class LocallyWeightedRegression(Regressor):
+    name = "locally weighted regression"
+
+    def __init__(self, n_features, learning_rate):
+        super().__init__(n_features)
+        self.rate = learning_rate
+
+    def train(self, train_x, train_y, verbose = 0):
         self.train_x = train_x
         self.train_y = train_y
 
     def predict(self, test_x):
         pred = []
         for i in range(len(test_x)):
-            bias = np.empty((len(self.train_x), 1))
+            weight = np.empty((len(self.train_x), 1))
 
             for j in range(len(self.train_x)):
-                bias[j] = np.exp(-1 * np.linalg.norm(self.train_x[j] - test_x[i]) ** 2)
+                weight[j] = np.exp(-1 * np.linalg.norm(self.train_x[j] - test_x[i]) ** 2)
 
-            ne = NormalEquation(self.n_feature)
-            ne.train(np.multiply(bias, self.train_x), self.train_y)
+            count = 0
+            prev_loss = 0
 
-            pred.append(ne.predict(test_x[i]))
+            w = np.random.rand(self.n_features)
+
+            while True:
+                gradient = np.dot(np.multiply(weight.flatten(), (np.dot(self.train_x, w) - self.train_y)), self.train_x)
+
+                w -= self.rate * gradient / len(self.train_y)
+
+                loss = 0.5 * np.dot(np.transpose(weight), (np.dot(self.train_x, w) - self.train_y) ** 2)
+
+                count += 1
+
+                if np.abs(loss - prev_loss) < 1:
+                    break
+
+                prev_loss = loss
+
+            pred.append(np.dot(test_x[i], w))
+
         return pred

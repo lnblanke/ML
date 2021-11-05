@@ -6,29 +6,26 @@
 
 import numpy as np
 from ..decision_tree import DecisionTreeClassifier
+from ..Classifier import Classifier
+from ..Ensemble import Ensemble
 
-class AdaBoost:
+
+class AdaBoost(Ensemble, Classifier):
     name = "AdaBoost"
 
-    def __init__(self, n_feature, n_classifier = 10, max_depth = 1, learning_rate = .5):
-        self.n_feature = n_feature
-        self.n_classifier = n_classifier
-        self.classifiers = []
-        self.max_depth = max_depth
+    def __init__(self, n_features, n_predictor = 10, max_depth = 1, learning_rate = .1):
+        super().__init__(n_features, n_predictor, DecisionTreeClassifier, n_features, max_depth)
 
-        for i in range(n_classifier):
-            self.classifiers.append(DecisionTreeClassifier(self.n_feature, self.max_depth))
-
-        self.weight = np.zeros(n_classifier)
+        self.weight = np.zeros(n_predictor)
         self.learning_rate = learning_rate
 
     def train(self, train_x, train_y):
         weights = np.full(len(train_y), 1 / len(train_y))
 
-        for i in range(self.n_classifier):
-            self.classifiers[i].train(train_x, train_y, weight = weights)
+        for i in range(self.n_predictor):
+            self.predictors[i].train(train_x, train_y, weight = weights)
 
-            pred = self.classifiers[i].predict(train_x)
+            pred = self.predictors[i].predict(train_x)
 
             error_rate = np.dot(weights, np.abs(pred - train_y)) / np.sum(weights)
 
@@ -43,8 +40,8 @@ class AdaBoost:
     def predict(self, test_x):
         votes = np.zeros((len(test_x), 2))
 
-        for i in range(self.n_classifier):
-            pred_i = self.classifiers[i].predict(test_x)
+        for i in range(self.n_predictor):
+            pred_i = self.predictors[i].predict(test_x)
 
             for j in range(len(test_x)):
                 votes[j][int(pred_i[j])] += self.weight[i]

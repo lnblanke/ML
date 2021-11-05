@@ -6,13 +6,14 @@
 
 import numpy as np
 from .tree_node import TreeNode
-import matplotlib.pyplot as plt
+from ..Regressor import Regressor
 
-class DecisionTreeRegressor:
-    name = "Decision Tree Regressor"
 
-    def __init__(self, n_feature, max_depth):
-        self.n_feature = n_feature
+class DecisionTreeRegressor(Regressor):
+    name = "decision tree regressor"
+
+    def __init__(self, n_features, max_depth: int):
+        super().__init__(n_features)
         self.max_depth = max_depth
         self.tree = [TreeNode(None, None, None)] * (2 ** (self.max_depth + 1))
 
@@ -25,7 +26,7 @@ class DecisionTreeRegressor:
         best_thres = 0
         best_loss = 1e5
 
-        for feature in range(self.n_feature):
+        for feature in range(self.n_features):
             thres = np.array(sorted(data[:, feature]))
 
             for i in range(len(label) - 1):
@@ -66,7 +67,7 @@ class DecisionTreeRegressor:
         self._build_tree(0, 1, train_x, train_y, weight)
 
     def _classify(self, data, node):
-        if self.tree[node].feature == None:
+        if self.tree[node].feature is None:
             return np.full(len(data), self.tree[node].classes)
 
         feature = self.tree[node].feature

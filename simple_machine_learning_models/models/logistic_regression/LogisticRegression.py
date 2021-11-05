@@ -5,17 +5,17 @@
 # @File: LogisticRegression.py
 
 import numpy as np
+from neural_network.blocks.function import sigmoid
+from ..Classifier import Classifier
 
-def sigmoid(num):
-    return 1.0 / (1 + np.exp(-1 * num))
 
-class LogisticRegression:
-    name = "Logistic Regression"
+class LogisticRegression(Classifier):
+    name = "logistic regression"
 
-    def __init__(self, n_feature, learning_rate = .00005):
-        self.n_feature = n_feature
+    def __init__(self, n_features, learning_rate = .00005):
+        super().__init__(n_features)
         self.rate = learning_rate
-        self.weight = np.random.rand(self.n_feature)
+        self.weight = np.random.rand(self.n_features)
 
     def train(self, train_x, train_y):
         count = 0

@@ -5,15 +5,18 @@
 # @File: KMeans.py
 
 import numpy as np
+from ..Unsupervised import Unsupervised
 
-class KMeans:
+
+class KMeans(Unsupervised):
     name = "K-Means"
 
-    def __init__(self, cluster):
+    def __init__(self, n_features, cluster: int):
+        super().__init__(n_features)
         self.n_clusters = cluster
 
     def train(self, train_x):
-        p = np.zeros((self.n_clusters, len(train_x[0])))
+        p = np.zeros((self.n_clusters, self.n_features))
 
         for i in range(self.n_clusters):
             p[i] = train_x[i]

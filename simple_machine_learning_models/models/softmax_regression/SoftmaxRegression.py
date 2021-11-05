@@ -5,22 +5,24 @@
 # @File: SoftmaxRegression.py
 
 import numpy as np
+from ..Classifier import Classifier
 
-class SoftmaxRegression:
-    name = "Softmax Regression"
 
-    def __init__(self, n_feature, n_class, learning_rate = .1):
-        self.n_feature = n_feature
+class SoftmaxRegression(Classifier):
+    name = "softmax regression"
+
+    def __init__(self, n_features, n_class, learning_rate = .1):
+        super().__init__(n_features)
         self.n_class = n_class
         self.rate = learning_rate
-        self.weight = np.random.random((self.n_class, self.n_feature))
+        self.weight = np.random.random((self.n_class, self.n_features))
 
     def train(self, train_x, train_y):
         count = 0
         prev_loss = 0
 
         while True:
-            gradient = np.zeros((self.n_class, self.n_feature))
+            gradient = np.zeros((self.n_class, self.n_features))
             loss = 0
 
             for i in range(len(train_y)):

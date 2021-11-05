@@ -7,11 +7,18 @@
 from scipy.stats import mode
 import numpy as np
 from .tree_node import TreeNode
-class DecisionTreeClassifier:
-    name = "Decision Tree Classifier"
+from ..Classifier import Classifier
 
-    def __init__(self, n_feature, max_depth):
-        self.n_feature = n_feature
+
+class DecisionTreeClassifier(Classifier):
+    name = "decision tree classifier"
+
+    def __init__(self, n_features, max_depth: int):
+        super().__init__(n_features)
+
+        if max_depth > 20:
+            raise ValueError("The max depth is too large!")
+
         self.max_depth = max_depth
         self.tree = [TreeNode(None, None, None)] * (2 ** (self.max_depth + 1))
 
@@ -24,7 +31,7 @@ class DecisionTreeClassifier:
         best_thres = 0
         best_loss = 1e5
 
-        for feature in range(self.n_feature):
+        for feature in range(self.n_features):
             num_left = [0, 0]
 
             num_right = [0, 0]
@@ -72,7 +79,7 @@ class DecisionTreeClassifier:
         self._build_tree(0, 1, train_x, train_y, weight)
 
     def _classify(self, data, node):
-        if self.tree[node].feature == None:
+        if self.tree[node].feature is None:
             return np.full(len(data), self.tree[node].classes)
 
         feature = self.tree[node].feature

@@ -6,31 +6,20 @@
 import numpy as np
 from ..decision_tree import DecisionTreeRegressor
 import warnings
+from tools import bootstrap
+from ..Ensemble import Ensemble
+from ..Regressor import Regressor
 
-class RandomForestRegressor:
-    name = "Random Forest Regressor"
 
-    def __init__(self, n_feature, n_trees, max_depth = 3):
-        self.n_feature = n_feature
-        self.n_trees = n_trees
-        self.max_depth = max_depth
-        self.trees = []
+class RandomForestRegressor(Ensemble, Regressor):
+    name = "random forest regressor"
 
-        for i in range(self.n_trees):
-            self.trees.append(DecisionTreeRegressor(self.n_feature, self.max_depth))
-
-    def _bootstrap(self, data, label):
-        indice = np.arange(len(data))
-        choice = np.random.choice(indice, replace = True, size = len(data))
-
-        sample_x = np.array([data[i] for i in choice])
-        sample_y = np.array([label[i] for i in choice])
-
-        return sample_x, sample_y
+    def __init__(self, n_features, n_predictor: int, max_depth = 3):
+        super().__init__(n_features, n_predictor, DecisionTreeRegressor, n_features, max_depth)
 
     def train(self, train_x, train_y):
-        for tree in self.trees:
-            sample_x, sample_y = self._bootstrap(train_x, train_y)
+        for tree in self.predictors:
+            sample_x, sample_y = bootstrap(train_x, train_y, len(train_y))
 
             # Deal with potential RuntimeWarning raised by NumPy
             with warnings.catch_warnings():
@@ -40,7 +29,7 @@ class RandomForestRegressor:
     def predict(self, test_x):
         sep_pred = []
 
-        for tree in self.trees:
+        for tree in self.predictors:
             sep_pred.append(tree.predict(test_x))
 
         pred = np.mean(sep_pred, axis = 0)

@@ -5,22 +5,23 @@
 # @File: BatchGradientDescend.py
 
 import numpy as np
+from ..Regressor import Regressor
 
-class BatchGradientDescend:
-    def __init__(self, n_feature, learning_rate = .1):
-        self.n_feature = n_feature
-        self.weight = np.random.rand(self.n_feature)
+
+class BatchGradientDescend(Regressor):
+    name = "batch gradient descend"
+
+    def __init__(self, n_features, learning_rate = .1):
+        super().__init__(n_features)
+        self.weight = np.random.rand(self.n_features)
         self.rate = learning_rate
 
-    def train(self, train_x, train_y):
+    def train(self, train_x, train_y, verbose = 1):
         count = 0
         prev_loss = 0
 
         while True:
-            gradient = np.zeros(self.n_feature)
-
-            for i in range(len(train_x)):
-                gradient += (np.dot(train_x[i], self.weight) - train_y[i]) * train_x[i]
+            gradient = np.dot((np.dot(train_x, self.weight) - train_y), train_x)
 
             self.weight -= self.rate / len(train_y) * gradient
 
@@ -28,7 +29,8 @@ class BatchGradientDescend:
 
             count += 1
 
-            print("Epoch: %d Loss: %.5f" % (count, loss))
+            if verbose != 0:
+                print("Epoch: %d Loss: %.5f" % (count, loss))
 
             if np.abs(prev_loss - loss) < 1:
                 break

@@ -6,34 +6,28 @@
 
 import numpy as np
 from ..decision_tree import DecisionTreeRegressor
-from tools import show_trendline
-import matplotlib.pyplot as plt
+from ..Ensemble import Ensemble
+from ..Regressor import Regressor
 
-class GradBoost:
-    name = "Gradient Boost"
 
-    def __init__(self, n_feature, n_classifier = 10, learning_rate = .01):
-        self.n_feature = n_feature
-        self.n_classifier = n_classifier
-        self.classifiers = []
+class GradBoost(Ensemble, Regressor):
+    name = "gradient boost"
 
-        for i in range(n_classifier):
-            self.classifiers.append(DecisionTreeRegressor(self.n_feature, 3))
-
-        self.learning_rate = learning_rate
+    def __init__(self, n_features, n_predictor = 10, max_depth = 3):
+        super().__init__(n_features, n_predictor, DecisionTreeRegressor, n_features, max_depth)
 
     def train(self, train_x, train_y):
         y = np.copy(train_y)
-        for i in range(self.n_classifier):
-            self.classifiers[i].train(train_x, y)
+        for i in range(self.n_predictor):
+            self.predictors[i].train(train_x, y)
 
-            pred = self.classifiers[i].predict(train_x)
+            pred = self.predictors[i].predict(train_x)
 
             print("Epoch: {:d} MSE: {:f}".format(i + 1, np.sum((y - pred) ** 2) / len(y)))
 
             y -= pred
 
     def predict(self, test_x):
-        pred = np.sum(classifier.predict(test_x) for classifier in self.classifiers)
+        pred = np.sum(predictor.predict(test_x) for predictor in self.predictors)
 
         return pred

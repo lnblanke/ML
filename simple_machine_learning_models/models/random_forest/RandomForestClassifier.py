@@ -5,38 +5,27 @@
 # @File: RandomForestClassifier.py
 import numpy as np
 from ..decision_tree import DecisionTreeClassifier
+from tools import bootstrap
+from ..Ensemble import Ensemble
+from ..Classifier import Classifier
 
-class RandomForestClassifier:
-    name = "Random Forest Classifier"
 
-    def __init__(self, n_feature, n_trees, max_depth = 1):
-        self.n_feature = n_feature
-        self.n_trees = n_trees
-        self.max_depth = max_depth
-        self.trees = []
+class RandomForestClassifier(Ensemble, Classifier):
+    name = "random forest classifier"
 
-        for i in range(self.n_trees):
-            self.trees.append(DecisionTreeClassifier(self.n_feature, self.max_depth))
-
-    def _bootstrap(self, data, label):
-        indice = np.arange(len(data))
-        choice = np.random.choice(indice, replace = True, size = len(data))
-
-        sample_x = np.array([data[i] for i in choice])
-        sample_y = np.array([label[i] for i in choice])
-
-        return sample_x, sample_y
+    def __init__(self, n_features, n_predictor = 10, max_depth = 1):
+        super().__init__(n_features, n_predictor, DecisionTreeClassifier, n_features, max_depth)
 
     def train(self, train_x, train_y):
-        for tree in self.trees:
-            sample_x, sample_y = self._bootstrap(train_x, train_y)
+        for tree in self.predictors:
+            sample_x, sample_y = bootstrap(train_x, train_y, len(train_y))
 
             tree.train(sample_x, sample_y)
 
     def predict(self, test_x):
         sep_pred = []
 
-        for tree in self.trees:
+        for tree in self.predictors:
             sep_pred.append(tree.predict(test_x))
 
         pred = np.max(sep_pred, axis = 0)
