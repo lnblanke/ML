@@ -34,14 +34,16 @@ if __name__ == '__main__':
 
     init = time.time()
 
-    if model_selected is DecisionTreeClassification:
+    if model_selected is DecisionTreeClassifier:
         model = model_selected(n_features, max_depth)
-    elif model_selected is DecisionTreeRegression:
+    elif model_selected is DecisionTreeRegressor:
         model = model_selected(1, max_depth // 3)
     elif model_selected is GradBoost:
         model = model_selected(1)
-    elif model_selected is RandomForest:
+    elif model_selected is RandomForestClassifier:
         model = model_selected(n_features, n_trees)
+    elif model_selected is RandomForestRegressor:
+        model = model_selected(1, n_trees)
     elif model_selected is SoftmaxRegression:
         model = model_selected(n_features, n_classes)
     elif model_selected is not LinearRegression:

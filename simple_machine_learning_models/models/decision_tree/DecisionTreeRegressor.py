@@ -2,14 +2,14 @@
 # @Time: 10/30/2021
 # @Author: lnblanke
 # @Email: fjh314.84@gmail.com
-# @File: DecisionTreeClassification.py
+# @File: DecisionTreeRegressor.py
 
 import numpy as np
 from .tree_node import TreeNode
 import matplotlib.pyplot as plt
 
-class DecisionTreeRegression:
-    name = "Decision Tree for Regression"
+class DecisionTreeRegressor:
+    name = "Decision Tree Regressor"
 
     def __init__(self, n_feature, max_depth):
         self.n_feature = n_feature
@@ -18,7 +18,7 @@ class DecisionTreeRegression:
 
     def _build_tree(self, layer, node, data, label, weight):
         if layer == self.max_depth:
-            self.tree[node] = TreeNode(None, None, np.average(label))
+            self.tree[node] = TreeNode(None, None, np.mean(label))
             return
 
         best_feature = 0
@@ -31,8 +31,8 @@ class DecisionTreeRegression:
             for i in range(len(label) - 1):
                 y_left = np.array([label[j] for j in range(len(label)) if data[j][feature] <= thres[i]])
                 y_right = np.array([label[j] for j in range(len(label)) if data[j][feature] > thres[i]])
-                avg_left = np.average(y_left)
-                avg_right = np.average(y_right)
+                avg_left = np.mean(y_left)
+                avg_right = np.mean(y_right)
 
                 loss = np.sum((y_left - avg_left) ** 2) / len(label) + np.sum((y_right - avg_right) ** 2) / len(label)
 
@@ -41,7 +41,7 @@ class DecisionTreeRegression:
                     best_feature = feature
                     best_thres = (thres[i + 1] + thres[i]) / 2
 
-        self.tree[node] = TreeNode(best_feature, best_thres, np.average(label))
+        self.tree[node] = TreeNode(best_feature, best_thres, np.mean(label))
 
         left_x = np.array([data[i] for i in range(len(data)) if (data[i][best_feature] <= best_thres)])
         right_x = np.array([data[i] for i in range(len(data)) if (data[i][best_feature] > best_thres)])
@@ -51,7 +51,7 @@ class DecisionTreeRegression:
         right_w = np.array([weight[i] for i in range(len(data)) if (data[i][best_feature] > best_thres)])
 
         if len(left_y) == 0 or len(right_y) == 0:
-            self.tree[node] = TreeNode(None, None, np.average(label))
+            self.tree[node] = TreeNode(None, None, np.mean(label))
             return
 
         self._build_tree(layer + 1, node * 2, left_x, left_y, left_w)

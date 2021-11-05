@@ -5,7 +5,7 @@
 # @File: GradBoost.py
 
 import numpy as np
-from ..decision_tree import DecisionTreeRegression
+from ..decision_tree import DecisionTreeRegressor
 from tools import show_trendline
 import matplotlib.pyplot as plt
 
@@ -18,7 +18,7 @@ class GradBoost:
         self.classifiers = []
 
         for i in range(n_classifier):
-            self.classifiers.append(DecisionTreeRegression(self.n_feature, 3))
+            self.classifiers.append(DecisionTreeRegressor(self.n_feature, 3))
 
         self.learning_rate = learning_rate
 

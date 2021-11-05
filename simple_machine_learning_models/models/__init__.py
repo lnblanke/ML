@@ -4,40 +4,42 @@
 # @File: __init__.py.py
 
 from .ada_boost import AdaBoost
-from .decision_tree import DecisionTreeRegression, DecisionTreeClassification
+from .decision_tree import DecisionTreeRegressor, DecisionTreeClassifier
 from .gaussian import GDA
 from .gradient_boost import GradBoost
 from .k_means import KMeans
 from .linear_regression import LinearRegression
 from .logistic_regression import LogisticRegression
 from .naive_bayes import NaiveBayes
-from .random_forest import RandomForest
+from .random_forest import RandomForestClassifier, RandomForestRegressor
 from .softmax_regression import SoftmaxRegression
 
 models = [
     AdaBoost,
-    DecisionTreeClassification,
-    DecisionTreeRegression,
+    DecisionTreeClassifier,
+    DecisionTreeRegressor,
     GDA,
     GradBoost,
     KMeans,
     LinearRegression,
     LogisticRegression,
     NaiveBayes,
-    RandomForest,
+    RandomForestClassifier,
+    RandomForestRegressor,
     SoftmaxRegression
 ]
 
 supervised_models = [
     AdaBoost,
-    DecisionTreeClassification,
-    DecisionTreeRegression,
+    DecisionTreeClassifier,
+    DecisionTreeRegressor,
     GDA,
     GradBoost,
     LinearRegression,
     LogisticRegression,
     NaiveBayes,
-    RandomForest,
+    RandomForestClassifier,
+    RandomForestRegressor,
     SoftmaxRegression
 ]
 
@@ -47,16 +49,17 @@ unsupervised_models = [
 
 classification_models = [
     AdaBoost,
-    DecisionTreeClassification,
+    DecisionTreeClassifier,
     GDA,
     LogisticRegression,
     NaiveBayes,
-    RandomForest,
+    RandomForestClassifier,
     SoftmaxRegression
 ]
 
 regression_models = [
-    DecisionTreeRegression,
+    DecisionTreeRegressor,
     GradBoost,
-    LinearRegression
+    LinearRegression,
+    RandomForestRegressor
 ]

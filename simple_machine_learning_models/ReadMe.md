@@ -45,5 +45,5 @@ All the models in this directory are implemented only with NumPy, but we import 
 | Regression | [Linear Regression](models/linear_regression) | NumPy, Matplotlib |
 | Classification | [Logistic Regression](models/logistic_regression) | NumPy |
 | Classification | [Naive Bayes](models/naive_bayes) | NumPy |
-| Classification | [Random Forest](models/random_forest) | NumPy, [Decision Tree](models/decision_tree) |
+| Classification & Regression | [Random Forest](models/random_forest) | NumPy, [Decision Tree](models/decision_tree) |
 | Classification | [Softmax Regression](models/softmax_regression) | Numpy |

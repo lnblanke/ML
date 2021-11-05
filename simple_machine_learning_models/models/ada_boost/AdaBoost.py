@@ -5,7 +5,7 @@
 # @File: AdaBoost.py
 
 import numpy as np
-from ..decision_tree import DecisionTreeClassification
+from ..decision_tree import DecisionTreeClassifier
 
 class AdaBoost:
     name = "AdaBoost"
@@ -17,7 +17,7 @@ class AdaBoost:
         self.max_depth = max_depth
 
         for i in range(n_classifier):
-            self.classifiers.append(DecisionTreeClassification(self.n_feature, self.max_depth))
+            self.classifiers.append(DecisionTreeClassifier(self.n_feature, self.max_depth))
 
         self.weight = np.zeros(n_classifier)
         self.learning_rate = learning_rate
