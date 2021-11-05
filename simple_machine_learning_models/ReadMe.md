@@ -23,6 +23,7 @@ All the models in this directory are implemented only with NumPy, but we import 
     - [AdaBoost](models/ada_boost)
     - [Decision Tree](models/decision_tree)
     - [GDA](models/gaussian)
+    - [Gradient Boost](models/gradient_boost)
     - [K-Means](models/k_means)
     - [Linear Regression](models/linear_regression)
     - [Logistic Regression](models/logistic_regression)
@@ -37,8 +38,9 @@ All the models in this directory are implemented only with NumPy, but we import 
 | Model Type | Model Name | Dependent Libraries |
 | ---------- | ---------- | ------------------- | 
 | Classification | [AdaBoost](models/ada_boost) | NumPy, [Decision Tree](models/decision_tree) |
-| Classification | [Decision Tree](models/decision_tree) | NumPy, SciPy |
+| Classification & Regression | [Decision Tree](models/decision_tree) | NumPy, SciPy |
 | Classification | [GDA](models/gaussian) | NumPy |
+| Regression | [Gradient Boost](models/gradient_boost) | NumPy, [Decision Tree](models/decision_tree) |
 | Unsupervised Clustering |  [K-Means](models/k_means) | NumPy |
 | Regression | [Linear Regression](models/linear_regression) | NumPy, Matplotlib |
 | Classification | [Logistic Regression](models/logistic_regression) | NumPy |
