@@ -30,6 +30,7 @@ All the models in this directory are implemented only with NumPy, but we import 
     - [Naive Bayes](models/naive_bayes)
     - [Random Forest](models/random_forest)
     - [Softmax Regression](models/softmax_regression)
+    - [Stacking](models/stacking)
 
 ****
 
@@ -42,8 +43,9 @@ All the models in this directory are implemented only with NumPy, but we import 
 | Classification | [GDA](models/gaussian) | NumPy |
 | Regression | [Gradient Boost](models/gradient_boost) | NumPy, [Decision Tree](models/decision_tree) |
 | Unsupervised Clustering |  [K-Means](models/k_means) | NumPy |
-| Regression | [Linear Regression](models/linear_regression) | NumPy, Matplotlib |
+| Regression | [Linear Regression](models/linear_regression) | NumPy |
 | Classification | [Logistic Regression](models/logistic_regression) | NumPy |
 | Classification | [Naive Bayes](models/naive_bayes) | NumPy |
 | Classification & Regression | [Random Forest](models/random_forest) | NumPy, [Decision Tree](models/decision_tree) |
 | Classification | [Softmax Regression](models/softmax_regression) | Numpy |
+| Regression | [Stacking](models/stacking) | Numpy, [Decision Tree](models/decision_tree) |
