@@ -11,7 +11,7 @@ import numpy as np
 
 n_samples = 1000  # # of samples
 n_features = 2  # # of features
-max_depth = 3  # Max depth for decision tree
+max_depth = 5  # Max depth for decision tree
 n_classes = 4  # # of classes for softmax regression
 n_predictor = 10  # # of classifiers for ensemble models
 n_clusters = 2  # # of clusters for unsupervised models
