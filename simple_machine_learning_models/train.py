@@ -8,6 +8,7 @@ from models import *
 from tools import *
 import time
 import numpy as np
+import sklearn.cluster
 
 n_samples = 1000  # # of samples
 n_features = 2  # # of features
@@ -35,6 +36,8 @@ if __name__ == '__main__':
 
     if model_selected is DecisionTreeClassifier or model_selected is DecisionTreeRegressor:
         model = model_selected(n_features, max_depth)
+    elif model_selected is DBSCAN:
+        model = model_selected(n_features, .3, 5)
     elif issubclass(model_selected, Ensemble):
         model = model_selected(n_features, n_predictor)
     elif model_selected is SoftmaxRegression:
@@ -49,7 +52,7 @@ if __name__ == '__main__':
                 model = model_selected(input("Please input the type of linear regression model: "), n_features)
                 break
             except TypeError:
-                print("The model does not exist!");
+                print("The model does not exist!")
 
     print(f"Training {model_selected.name} model...")
 
@@ -88,4 +91,4 @@ if __name__ == '__main__':
         pred = model.train(x)
         print("Time: %.5fms" % ((time.time() - init) * 1000))
 
-        show(x, pred, y, model.name)
+        show(x, pred, None, model.name)

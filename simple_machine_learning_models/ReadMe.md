@@ -21,8 +21,9 @@ All the models in this directory are implemented only with NumPy, but we import 
 - Simple Machine Learning Models
   - [models](models)
     - [AdaBoost](models/ada_boost)
+    - [DBSCAN](models/dbscan)
     - [Decision Tree](models/decision_tree)
-    - [GDA](models/gaussian)
+    - [GDA](models/gda)
     - [Gradient Boost](models/gradient_boost)
     - [K-Means](models/k_means)
     - [Linear Regression](models/linear_regression)
@@ -39,10 +40,11 @@ All the models in this directory are implemented only with NumPy, but we import 
 | Model Type | Model Name | Dependent Libraries |
 | ---------- | ---------- | ------------------- | 
 | Classification | [AdaBoost](models/ada_boost) | NumPy, [Decision Tree](models/decision_tree) |
+| Clustering | [DBSCAN](models/dbscan) | Numpy |
 | Classification & Regression | [Decision Tree](models/decision_tree) | NumPy, SciPy |
-| Classification | [GDA](models/gaussian) | NumPy |
+| Classification | [GDA](models/gda) | NumPy |
 | Regression | [Gradient Boost](models/gradient_boost) | NumPy, [Decision Tree](models/decision_tree) |
-| Unsupervised Clustering |  [K-Means](models/k_means) | NumPy |
+| Clustering |  [K-Means](models/k_means) | NumPy |
 | Regression | [Linear Regression](models/linear_regression) | NumPy |
 | Classification | [Logistic Regression](models/logistic_regression) | NumPy |
 | Classification | [Naive Bayes](models/naive_bayes) | NumPy |

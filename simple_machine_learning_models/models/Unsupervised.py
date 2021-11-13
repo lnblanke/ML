@@ -18,5 +18,5 @@ class Unsupervised(Model):
         super().__init__(n_features)
 
     @abc.abstractmethod
-    def train(self, train_x: np.ndarray):
+    def train(self, train_x: np.ndarray) -> np.ndarray:
         pass

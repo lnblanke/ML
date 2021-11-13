@@ -22,5 +22,5 @@ class Supervised(Model):
         pass
 
     @abc.abstractmethod
-    def predict(self, test_x: np.ndarray):
+    def predict(self, test_x: np.ndarray) -> np.ndarray:
         pass

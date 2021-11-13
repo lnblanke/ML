@@ -10,8 +10,9 @@ from .Classifier import Classifier
 from .Regressor import Regressor
 from .Ensemble import Ensemble
 from .ada_boost import AdaBoost
+from .dbscan import DBSCAN
 from .decision_tree import DecisionTreeClassifier, DecisionTreeRegressor
-from .gaussian import GDA
+from .gda import GDA
 from .gradient_boost import GradBoost
 from .k_means import KMeans
 from .linear_regression import LinearRegression
@@ -24,6 +25,7 @@ from .stacking import StackingRegressor
 models = [
     AdaBoost,
     DecisionTreeClassifier,
+    DBSCAN,
     DecisionTreeRegressor,
     GDA,
     GradBoost,
