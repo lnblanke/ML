@@ -24,7 +24,6 @@ Most implementations require dependence of NumPy, Scikit-Learn, Tensorflow, and 
   - [Computer Vision](cv)
   - [Face Recognition](FaceRecog)
   - [Kaggle Competitions](Kaggle)
-  - [MNIST](MNIST)
   - [Neural Network](neural_network)
   - [Natural Language Processing](nlp)
   - [Simple Machine Learning Models](simple_machine_learning_models)
