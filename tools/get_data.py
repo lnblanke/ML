@@ -8,10 +8,16 @@ from sklearn.datasets import make_classification, make_regression
 from sklearn.model_selection import train_test_split
 import numpy as np
 
+
 def get_classification_data(samples = 1000, classes = 2, clusters = 1, features = 2, sep = 1, split = .2,
-                            supervised = True):
-    data = make_classification(n_samples = samples, n_classes = classes, n_clusters_per_class = clusters,
-        n_features = features, n_redundant = 0, class_sep = sep, n_informative = 2)
+                            supervised = True, random_state = -1):
+    if random_state < 0:
+        data = make_classification(n_samples = samples, n_classes = classes, n_clusters_per_class = clusters,
+                                   n_features = features, n_redundant = 0, class_sep = sep, n_informative = 2)
+    else:
+        data = make_classification(n_samples = samples, n_classes = classes, n_clusters_per_class = clusters,
+                                   n_features = features, n_redundant = 0, class_sep = sep, n_informative = 2,
+                                   random_state = random_state)
 
     if not supervised:
         return data[0], data[1]

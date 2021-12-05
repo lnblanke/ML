@@ -1,4 +1,4 @@
-# Testing whether a person is male or female with weight and height using common neural network
+# This is a sample fully connected neural network that learns to perform XOR calculation
 # @Time: 8/13/2020
 # @Author: lnblanke
 # @Email: fjh314.84@gmail.com
@@ -7,36 +7,60 @@
 from blocks import Dense
 from blocks import mse
 import numpy as np
+from tools.get_data import get_classification_data
+from tools.show_prediction import show
 
-rate = 0.1  # Learning rate
-epoch = 1000  # Learning epochs
-
-# Input data
-data = np.array([[-2, -1], [25, 6], [17, 4], [-15, -6]])
-y = np.array([1, 0, 0, 1])
+rate = 1e-2  # Learning rate
+epoch = 200  # Learning epochs
 
 if __name__ == '__main__':
+    # Get data
+    train_x, test_x, train_y, test_y = get_classification_data(samples = 1000, features = 2,
+                                                               classes = 2, sep = 1)
+
+    # Define model
     layers = [
-        Dense(2, 3, "sigmoid", rate),
-        Dense(3, 5, "sigmoid", rate),
-        Dense(5, 3, "sigmoid", rate),
-        Dense(3, 1, "sigmoid", rate),
+        Dense(2, 64, "sigmoid", rate),
+        Dense(64, 32, "sigmoid", rate),
+        Dense(32, 16, "sigmoid", rate),
+        Dense(16, 4, "sigmoid", rate),
+        Dense(4, 1, "sigmoid", rate),
     ]
 
-    # Learn
+    # Train model
+    prev_loss = 1
+
     for i in range(epoch):
-        for j in range(len(y)):
-            output = data[j]
+        output = train_x
 
-            for layer in layers:
-                output = layer.feedforward(output)
+        for layer in layers:
+            output = layer.feedforward(output)
 
-            # Print learning results
-            if (i + 1) % 10 == 0:
-                loss = mse(y, output)
-                print("Epoch %d loss: %.3f" % (i + 1, loss))
+        output = output.flatten()
 
-            dev = -2 * (y[j] - output)
+        # Print learning results
+        loss = mse(train_y, output)
 
-            for layer in reversed(layers):
-               dev = layer.backprop(dev)
+        print("Epoch %d loss: %.3f accuracy: %.2f" % (
+            i + 1, loss, np.sum((output >= .5) == train_y) / len(train_y) * 100) + "%")
+
+        dev = output.flatten() - train_y
+
+        for layer in reversed(layers):
+            dev = layer.backprop(dev)
+
+        if loss >= prev_loss:
+            break
+
+        prev_loss = loss
+
+    output = test_x
+
+    for layer in layers:
+        output = layer.feedforward(output)
+
+    output = output.flatten() > .5
+
+    print("Accuracy: %.2f" % (np.sum(output == test_y) / len(test_y) * 100) + "%")
+
+    show(test_x, output, test_y, "ANN")
