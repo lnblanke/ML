@@ -1,8 +1,8 @@
 # A sample fully connected neural network that learns to perform XOR calculation
-# @Time: 8/13/2020
+# @Time: 12/15/2021
 # @Author: lnblanke
 # @Email: fjh314.84@gmail.com
-# @File: ann.py
+# @File: multi-class-ann.py
 
 from blocks import Dense
 from model import Model
@@ -11,20 +11,22 @@ from tools.get_data import get_classification_data
 from tools.show_prediction import show
 
 rate = 1e-2  # Learning rate
-epoch = 500  # Learning epochs
+epoch = 100  # Learning epochs
 patience = 10  # Early stop patience
 
 model = Model("ANN")
-model.add(Dense(2, 16, "relu"))
-model.add(Dense(16, 4, "relu"))
-model.add(Dense(4, 1, "sigmoid"))
+model.add(Dense(2, 8, "relu", name = "Relu-1"))
+model.add(Dense(8, 16, "relu", name = "Relu-2"))
+model.add(Dense(16, 4, "relu", name = "Relu-3"))
+model.add(Dense(4, 3, "softmax", name = "Softmax"))
 
 # Get data
 train_x, test_x, train_y, test_y = get_classification_data(samples = 1000, features = 2,
-                                                           classes = 2, sep = 1)
+                                                           classes = 3, sep = 1, random_state = 0)
 
 if __name__ == '__main__':
-    model.fit(train_x, train_y, epochs = epoch, loss_func = "mse", learning_rate = rate, patience = patience)
+    model.fit(train_x, train_y, epochs = epoch, loss_func = "cross entropy loss", learning_rate = rate,
+              patience = patience)
 
     pred = model.predict(test_x)
 
