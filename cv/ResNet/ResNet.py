@@ -15,7 +15,7 @@ def bottleneck(input, f1, f3, stride):
     if stride == 2:
         input = Conv2D(kernel_size = 1, strides = 2, filters = f3, padding = "valid", activation = "relu")(input)
 
-    x = Concatenate()([input, x])
+    x = input + x
     x = Activation(activation = "relu")(x)
 
     return x
@@ -27,7 +27,7 @@ def block(input, f1, stride):
     if stride == 2:
         input = Conv2D(kernel_size = 1, strides = 2, filters = f1, padding = "valid", activation = "relu")(input)
 
-    x = Concatenate()([input, x])
+    x = input + x
     x = Activation(activation = "relu")(x)
 
     return x
@@ -75,37 +75,3 @@ def createResNet(type):
     model = tf.keras.Model(inputs = input, outputs = x, name = "ResNet")
 
     return model
-
-if __name__ == '__main__':
-    import matplotlib.pyplot as plt
-    import numpy as np
-    import tensorflow as tf
-
-    labels = ["airplane", "automobile", "bird", "cat", "deer", "dog", "frog", "horse", "ship", "truck"]
-
-    (train_data, train_label), (test_data, test_label) = tf.keras.datasets.cifar10.load_data()
-
-    model = createResNet(18)
-
-    model.compile(optimizer = "adam", loss = tf.keras.losses.SparseCategoricalCrossentropy(),
-        metrics = ["accuracy"])
-
-    model.fit(train_data, train_label, epochs = 50, batch_size = 100)
-
-    pred = np.argmax(model.predict(test_data), axis = 1)
-
-    correct = 0
-
-    for i in range(len(test_label)):
-        correct += (pred[i] == test_label[i])
-
-    print("Correction: %.2f%%" % (correct / len(test_label) * 100))
-
-    fig = plt.figure(figsize = (10, 40))
-
-    for i in range(9):
-        ax = fig.add_subplot(911 + i)
-        ax.imshow(test_data[i])
-
-        ax.set_title(
-            "Labelled as " + labels[int(test_label[i])] + ", classified as " + labels[int(pred[i])])
