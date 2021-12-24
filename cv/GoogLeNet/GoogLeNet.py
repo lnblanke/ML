@@ -60,8 +60,3 @@ def createGoogLeNet():
     model = tf.keras.Model(inputs = input, outputs = [softmax_0, softmax_1, softmax_2], name = "GoogLeNet")
 
     return model
-
-if __name__ == '__main__':
-    print(createGoogLeNet().summary())
-    tf.keras.utils.plot_model(createGoogLeNet(), to_file = "GoogLeNet.png", show_shapes = False,
-        show_layer_names = True, rankdir = "TB")
