@@ -25,11 +25,11 @@ class BatchGradientDescend(Regressor):
 
             self.weight -= self.rate / len(train_y) * gradient
 
-            loss = 0.5 * np.sum((np.dot(train_x, self.weight) - train_y) ** 2)
+            loss = 0.5 * np.sum((np.dot(train_x, self.weight) - train_y) ** 2) / len(train_y)
 
             count += 1
 
-            if verbose != 0:
+            if verbose != 0 and count % 10 == 0:
                 print("Epoch: %d Loss: %.5f" % (count, loss))
 
             if np.abs(prev_loss - loss) < 1:

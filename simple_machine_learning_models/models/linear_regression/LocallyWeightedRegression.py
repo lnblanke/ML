@@ -37,7 +37,7 @@ class LocallyWeightedRegression(Regressor):
 
                 w -= self.rate * gradient / len(self.train_y)
 
-                loss = 0.5 * np.dot(np.transpose(weight), (np.dot(self.train_x, w) - self.train_y) ** 2)
+                loss = 0.5 * np.dot(np.transpose(weight), (np.dot(self.train_x, w) - self.train_y) ** 2) / len(self.train_y)
 
                 count += 1
 
