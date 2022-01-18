@@ -5,7 +5,7 @@
 # @File: RandomForestClassifier.py
 import numpy as np
 from ..decision_tree import DecisionTreeClassifier
-from tools import bootstrap
+from ..tools import bootstrap
 from ..Ensemble import Ensemble
 from ..Classifier import Classifier
 

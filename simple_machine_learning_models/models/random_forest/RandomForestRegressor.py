@@ -6,7 +6,7 @@
 import numpy as np
 from ..decision_tree import DecisionTreeRegressor
 import warnings
-from tools import bootstrap
+from ..tools import bootstrap
 from ..Ensemble import Ensemble
 from ..Regressor import Regressor
 

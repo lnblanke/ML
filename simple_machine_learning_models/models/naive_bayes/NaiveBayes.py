@@ -49,4 +49,4 @@ class NaiveBayes(Classifier):
 
             pred.append(p_1 >= p_0)
 
-        return pred
+        return np.asarray(pred)
