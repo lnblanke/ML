@@ -31,7 +31,6 @@ def dcross_entropy_loss(pred, real):
 
     return grad
 
-
 # Sigmoid function
 # Sigmoid(x) = 1/(1+e^-x)
 def sigmoid(x):

@@ -7,8 +7,7 @@
 from blocks import Dense
 from model import Model
 import numpy as np
-from tools.get_data import get_classification_data
-from tools.show_prediction import show
+from tools import get_classification_data, show
 
 rate = 1e-2  # Learning rate
 epoch = 500  # Learning epochs

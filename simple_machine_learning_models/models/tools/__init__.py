@@ -5,4 +5,4 @@
 
 from .get_data import *
 from .show_prediction import *
-from .MI_Score import  *
+from .MI_Score import *
