@@ -15,7 +15,7 @@ from ..Regressor import Regressor
 class LinearRegression(Regressor):
     name = "linear regression"
 
-    def __init__(self, type: str, n_features, learning_rate = 0.1):
+    def __init__(self, n_features, type: str, learning_rate = 0.1):
         super().__init__(n_features)
         self.rate = learning_rate
 

@@ -25,11 +25,11 @@ class StochasticGradientDescend(Regressor):
             gradient = (np.dot(train_x[index], self.weight) - train_y[index]) * train_x[index]
 
             self.weight -= self.rate * gradient
-            loss = 0.5 * np.sum((np.dot(train_x, self.weight) - train_y) ** 2)
+            loss = 0.5 * np.sum((np.dot(train_x, self.weight) - train_y) ** 2) / len(train_y)
 
             count += 1
 
-            if verbose != 0:
+            if verbose != 0 and count % 100 == 0:
                 print("Epoch: %d Loss: %.5f" % (count, loss))
 
             if np.abs(loss - prev_loss) < 1:

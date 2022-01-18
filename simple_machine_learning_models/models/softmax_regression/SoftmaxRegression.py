@@ -11,27 +11,27 @@ from ..Classifier import Classifier
 class SoftmaxRegression(Classifier):
     name = "softmax regression"
 
-    def __init__(self, n_features, n_class, learning_rate = .1):
+    def __init__(self, n_features, n_classes, learning_rate = .1):
         super().__init__(n_features)
-        self.n_class = n_class
+        self.n_classes = n_classes
         self.rate = learning_rate
-        self.weight = np.random.random((self.n_class, self.n_features))
+        self.weight = np.random.random((self.n_classes, self.n_features))
 
     def train(self, train_x, train_y):
         count = 0
         prev_loss = 0
 
         while True:
-            gradient = np.zeros((self.n_class, self.n_features))
+            gradient = np.zeros((self.n_classes, self.n_features))
             loss = 0
 
             for i in range(len(train_y)):
-                pred = np.zeros(self.n_class)
+                pred = np.zeros(self.n_classes)
 
-                for j in range(self.n_class):
+                for j in range(self.n_classes):
                     pred[j] = np.exp(np.dot(self.weight[j], train_x[i]))
 
-                for j in range(self.n_class):
+                for j in range(self.n_classes):
                     loss += -1 * (train_y[i] == j) * np.log(pred[j] / np.sum(pred))
                     gradient[j] += train_x[i] * ((train_y[i] == j) - pred[j] / np.sum(pred))
 
@@ -52,4 +52,4 @@ class SoftmaxRegression(Classifier):
         for i in range(len(test_x)):
             pred.append(np.argmax(np.dot(self.weight, test_x[i])))
 
-        return pred
+        return np.asarray(pred)
