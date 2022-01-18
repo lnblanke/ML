@@ -66,4 +66,4 @@ class GDA(Classifier):
 
             pred.append(p_0 <= p_1)
 
-        return pred
+        return np.asarray(pred)

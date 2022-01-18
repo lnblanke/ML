@@ -5,9 +5,7 @@
 # @File: LogisticRegression.py
 
 import numpy as np
-from neural_network.blocks.function import sigmoid
 from ..Classifier import Classifier
-
 
 class LogisticRegression(Classifier):
     name = "logistic regression"
@@ -16,6 +14,11 @@ class LogisticRegression(Classifier):
         super().__init__(n_features)
         self.rate = learning_rate
         self.weight = np.random.rand(self.n_features)
+        
+    # Sigmoid function
+    # Sigmoid(x) = 1/(1+e^-x)
+    def _sigmoid(self, x):
+        return 1 / (1 + np.exp(-x))
 
     def train(self, train_x, train_y):
         count = 0
@@ -25,10 +28,10 @@ class LogisticRegression(Classifier):
             gradient = 0
 
             for i in range(len(train_y)):
-                gradient += (train_y[i] - sigmoid(np.dot(train_x[i], self.weight))) * train_x[i]
+                gradient += (train_y[i] - self._sigmoid(np.dot(train_x[i], self.weight))) * train_x[i]
 
             self.weight += self.rate * gradient
-            result = sigmoid(np.dot(train_x, self.weight))
+            result = self._sigmoid(np.dot(train_x, self.weight))
             correct = 0
 
             for i in range(len(train_y)):
@@ -47,6 +50,6 @@ class LogisticRegression(Classifier):
             prev_accuracy = accuracy
 
     def predict(self, test_x):
-        pred = sigmoid(np.dot(test_x, self.weight)) >= .5
+        pred = self._sigmoid(np.dot(test_x, self.weight)) >= .5
 
         return pred
