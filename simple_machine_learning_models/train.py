@@ -5,7 +5,7 @@
 # @File: train.py.py
 
 from models import *
-from tools import *
+from neural_network.tools import *
 import time
 import numpy as np
 

@@ -1,38 +1,24 @@
-# Computer Vision
+# ResNet
 
-The implement of computer vision models in recent years
+![paper.png](paper.png)
 
-****
+## Intro
 
-### Intro
-
-Computer vision(CV) is one of the major areas of deep learning nowadays. It mainly deals with segmentation and recognition of objects in picture. Some of the fields of CV are image classification, object detection, and semantic segmentation. This directory of the repo implements some of the most important CV models in recently years, including AlexNet, VGG, GoogLeNet, and ResNet. Detailed list of CV models in this directory can be found [here](#list).
-
-****
-
-### Dependence
-
-All the CV models in this directory are constructed based on TensorFlow 2. The data of Cifar 10 dataset is acquired from Tensorflow Dataset and we use Keras-Tuner to fine-tune our models. For Jyputer Notebooks, all the dependence libraries can be installed simply by running the cells. GPU is preferred for fine-tuning and training process as deep neural networks contains millions of weights that are hard to train in a very short time.
-
-****
+This directory is the implementation of ResNet, the convolutional neural network structure demonstrated in the
+paper [Deep Residual Learning for Image Recognition](https://arxiv.org/pdf/1512.03385.pdf) by He et al. published on
+CVPR 2016. In this paper, the author purposed a residual learning method that prevents gradient vanishing as well as
+overfitting. In this directory, we used TensorFlow and Keras framework to implement a simple ResNet model and trained
+our fine-tuned model with Cifar 10 model, receiving a top-1 accuracy of 89%.
 
 ### Structure of Directory
 
-- Computer Vision
-  - [AlexNet](AlexNet)
-  - [VGG](VGG)
-  - [GoogLeNet](GoogLeNet)
-  - [Xception](Xception)
-  - [ResNet](ResNet)
+- [ResNet.py](ResNet.py)
+  This python file contains a function that builds a raw ResNet model that can be trained on ImageNet dataset.
+- [ResNet.png](ResNet-152.png)
+  This png file shows the structure of ResNet-152 that can be trained on ImageNet dataset.
+- [ResNet.ipynb](ResNet.ipynb)
+  This Jupyter Notebook records our training of ResNet on Cifar 10 dataset. It can be run on any devices
+- [Weights](weights)
+  This directory contains the weights that we trained on Cifar 10 dataset.
 
-****
-
-<h3 id = "list"> List of Implementations </h3>
-
-| Category | Model Name | Implemented Paper | Dependent Libraries |
-| -------- | ---------- | ----------------- | ------------------- |
-| Image Classification | [AlexNet](AlexNet) | [ImageNet Classification with Deep Convolutional Neural Networks](https://papers.nips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf) | Tensorflow |
-| Image Classification | [VGG](VGG) | [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/pdf/1409.1556.pdf) | Tensorflow |
-| Image Classification | [GoogLeNet](GoogLeNet) | [Going Deeper with Convolutions](https://arxiv.org/pdf/1409.4842.pdf) | Tensorflow |
-| Image Classification | [Xception](Xception) | [Xception: Deep Learning with Depthwise Separable Convolutions](https://arxiv.org/pdf/1610.02357.pdf) | Tensorflow |
-| Image Classification | [ResNet](ResNet) | [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/pdf/1409.1556.pdf) | Tensorflow |
+  **Update:** the weight file is too large to upload to GitHub and will be fixed soon.

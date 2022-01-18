@@ -6,4 +6,5 @@
 from .conv import Conv
 from .dense import Dense
 from .maxpool import MaxPool
+from .rnn import RNN
 from .function import mse, cross_entropy_loss, dmse, dcross_entropy_loss

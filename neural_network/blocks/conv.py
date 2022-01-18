@@ -52,3 +52,5 @@ class Conv(Layer):
                     dev[k] += dy_dx[i, j, k] * region
 
         self.weights -= learning_rate * dev
+
+        # TODO: add return derivative for next bp

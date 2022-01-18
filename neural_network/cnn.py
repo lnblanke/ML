@@ -4,17 +4,13 @@
 # @Email: fjh314.84@gmail.com
 # @File: cnn.py
 
-import mnist
 import numpy as np
-
+import tensorflow as tf
 from blocks import Conv, Dense, MaxPool
 from model import Model
 
 # Get train and test images from MNIST dataset
-train_img = mnist.train_images()[:1000]
-train_label = mnist.train_labels()[:1000]
-test_img = mnist.test_images()[1000:1200]
-test_label = mnist.test_labels()[1000:1200]
+(train_img, train_label), (test_img, test_label) = tf.keras.datasets.mnist.load_data()
 
 rate = 1e-2  # Learning rate
 epoch = 30  # Learning epochs
