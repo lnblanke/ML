@@ -5,10 +5,9 @@
 # @File: train.py.py
 
 from models import *
-from tools import *
+from neural_network.tools import *
 import time
 import numpy as np
-import sklearn.cluster
 
 n_samples = 1000  # # of samples
 n_features = 2  # # of features

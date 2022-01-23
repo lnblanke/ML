@@ -1,42 +1,32 @@
-# Testing whether a person is male or female with weight and height using common neural network
+# A sample fully connected neural network that learns to perform XOR calculation
 # @Time: 8/13/2020
 # @Author: lnblanke
 # @Email: fjh314.84@gmail.com
 # @File: ann.py
 
 from blocks import Dense
-from blocks import mse
+from model import Model
 import numpy as np
+from tools import get_classification_data, show
 
-rate = 0.1  # Learning rate
-epoch = 1000  # Learning epochs
+rate = 1e-2  # Learning rate
+epoch = 500  # Learning epochs
+patience = 10  # Early stop patience
 
-# Input data
-data = np.array([[-2, -1], [25, 6], [17, 4], [-15, -6]])
-y = np.array([1, 0, 0, 1])
+model = Model("ANN")
+model.add(Dense(2, 16, "relu"))
+model.add(Dense(16, 4, "relu"))
+model.add(Dense(4, 1, "sigmoid"))
+
+# Get data
+train_x, test_x, train_y, test_y = get_classification_data(samples = 1000, features = 2,
+                                                           classes = 2, sep = 1)
 
 if __name__ == '__main__':
-    layers = [
-        Dense(2, 3, "sigmoid", rate),
-        Dense(3, 5, "sigmoid", rate),
-        Dense(5, 3, "sigmoid", rate),
-        Dense(3, 1, "sigmoid", rate),
-    ]
+    model.fit(train_x, train_y, epochs = epoch, loss_func = "mse", learning_rate = rate, patience = patience)
 
-    # Learn
-    for i in range(epoch):
-        for j in range(len(y)):
-            output = data[j]
+    pred = model.predict(test_x)
 
-            for layer in layers:
-                output = layer.feedforward(output)
+    print("Accuracy: %.2f" % (np.sum(pred == test_y) / len(test_y) * 100) + "%")
 
-            # Print learning results
-            if (i + 1) % 10 == 0:
-                loss = mse(y, output)
-                print("Epoch %d loss: %.3f" % (i + 1, loss))
-
-            dev = -2 * (y[j] - output)
-
-            for layer in reversed(layers):
-               dev = layer.backprop(dev)
+    show(test_x, pred, test_y, "ANN")
