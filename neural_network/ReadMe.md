@@ -23,15 +23,23 @@ TensorFlow library to download the data of MNIST dataset and IMDB dataset. You c
 to get data in replace of TensorFlow. The training of CNN and RNN is relatively slow, so we recommend using GPU to
 accelerate training process.
 
+We also use pretrained embedding layer from [Keras](https://keras.io/examples/nlp/pretrained_word_embeddings/) for
+preprocessing the IMDB data for RNN training. You can download it using the following commands:
+
+```shell
+wget http://nlp.stanford.edu/data/glove.6B.zip
+unzip -q glove.6B.zip
+```
+
 ****
 
 ### Structure of Directory
 
 - Neural Network
-    - [Blocks](blocks)
-    - [ANN](ann.py)
-    - [CNN](cnn.py)
-    - [Multi-class ANN](multi-class-ann.py)
+  - [Blocks](blocks)
+  - [ANN](ann.py)
+  - [CNN](cnn.py)
+  - [Multi-class ANN](multi-class-ann.py)
     - [RNN](rnn.py)
 
 ****
@@ -46,7 +54,7 @@ accelerate training process.
 | [Recursive layer](blocks/rnn.py)      | [Learning Internal Representations by Error Propagation](https://apps.dtic.mil/dtic/tr/fulltext/u2/a164453.pdf)                               |
 
 We also implemented a [generalized model class](model.py) that is similar to ```tf.keras.Model``` and used these layers
-to perform several tasks, including [binary classification](ann.py), [multi-class classification](multi-class-ann.py),
+to perform several tasks, including [binary classification](ann.py), [IMDB dataset classification](rnn.py),
 and [MNIST classification](cnn.py).
 
 ****

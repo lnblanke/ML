@@ -3,6 +3,8 @@
 # @Author: lnblanke
 # @Email: fjh314.84@gmail.com
 # @File: rnn.py.py
+
+from .layer import Layer
 import numpy as np
 
 
@@ -17,9 +19,9 @@ class RNN(Layer):
         self.output_size = output_size
         self.units = units
         self.output_seq = output_seq
-        self.weight_xh = np.random.randn(self.units, self.input_size)
-        self.weight_hh = np.random.randn(self.units, self.units)
-        self.weight_hy = np.random.randn(self.output_size, self.units)
+        self.weight_xh = np.random.randn(self.units, self.input_size) / 1000
+        self.weight_hh = np.random.randn(self.units, self.units) / 1000
+        self.weight_hy = np.random.randn(self.output_size, self.units) / 1000
         self.bias_h = np.zeros(self.units)
         self.bias_y = np.zeros(self.output_size)
         self.seq = None
@@ -34,6 +36,7 @@ class RNN(Layer):
         self.hs = []
         self.length = len(input_vector)
         self.input = input_vector
+        self.hs.append(0)
 
         for i in range(self.length):
             h = np.tanh(np.dot(self.weight_xh, input_vector[i]) + np.dot(self.weight_hh, h) + self.bias_h)
@@ -47,20 +50,24 @@ class RNN(Layer):
             return y
 
     def backprop(self, dy_dx: np.ndarray, learning_rate):
-        self.weight_hy -= learning_rate * np.dot(np.asmatrix(dy_dx).transpose(), np.asmatrix(self.hs[-1]))
-        self.bias_y -= learning_rate * dy_dx
+        d_hy = np.dot(np.asmatrix(dy_dx).transpose(), np.asmatrix(self.hs[-1]))
         d_hh = np.zeros(self.weight_hh.shape)
         d_xh = np.zeros(self.weight_xh.shape)
         d_hb = np.zeros(self.bias_h.shape)
         d_h = np.dot(dy_dx, self.weight_hy)
 
         for i in reversed(range(self.length)):
-            dev = (1 - self.hs[i - 1] ** 2) * d_h
-            d_hh += np.dot(np.asmatrix(dev).transpose(), np.asmatrix(self.hs[i - 1]))
+            dev = (1 - self.hs[i + 1] ** 2) * d_h
+            d_hh += np.dot(np.asmatrix(dev).transpose(), np.asmatrix(self.hs[i]))
             d_xh += np.dot(np.asmatrix(dev).transpose(), np.asmatrix(self.input[i]))
             d_hb += dev
             d_h = np.dot(self.weight_hh, dev)
 
+        for d in [d_hy, dy_dx, d_hh, d_xh, d_hb]:
+            np.clip(d, -1, 1, out = d)
+
+        self.weight_hy -= learning_rate * d_hy
+        self.bias_y -= learning_rate * dy_dx
         self.weight_hh -= learning_rate * d_hh
         self.weight_xh -= learning_rate * d_xh
         self.bias_h -= learning_rate * d_hb
