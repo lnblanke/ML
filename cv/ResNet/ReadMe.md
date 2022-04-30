@@ -8,7 +8,7 @@ This directory is the implementation of ResNet, the convolutional neural network
 paper [Deep Residual Learning for Image Recognition](https://arxiv.org/pdf/1512.03385.pdf) by He et al. published on
 CVPR 2016. In this paper, the author purposed a residual learning method that prevents gradient vanishing as well as
 overfitting. In this directory, we used TensorFlow and Keras framework to implement a simple ResNet model and trained
-our fine-tuned model with Cifar 10 model, receiving a top-1 accuracy of 89%.
+our fine-tuned model with Cifar 10 model, receiving a top-1 accuracy of 91% with ResNet-50.
 
 ### Structure of Directory
 
