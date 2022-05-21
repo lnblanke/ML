@@ -2,7 +2,7 @@
 # @Time: 6/27/2021
 # @Author: lnblanke
 # @Email: fjh314.84@gmail.com
-# @File: ResNet.py
+# @File: NiN.py
 
 import tensorflow as tf
 from tensorflow.keras.layers import *
