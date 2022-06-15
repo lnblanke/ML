@@ -13,57 +13,32 @@ class GDA(Classifier):
 
     def __init__(self, n_features):
         super().__init__(n_features)
-        self.phi = 0.0
-        self.mu0 = np.zeros(self.n_features)
-        self.mu1 = np.zeros(self.n_features)
+        self.phi = np.zeros(2)
+        self.mu = np.zeros((self.n_features, 2))
         self.sigma = np.zeros((self.n_features, self.n_features))
 
     def train(self, train_x, train_y):
-        self.train_x = train_x
-        self.train_y = train_y
-
-        num_pos = 0.0
-        num_neg = 0.0
+        self.phi = np.array([len(train_y) - np.sum(train_y), np.sum(train_y)]) / len(train_y)
 
         for i in range(len(train_y)):
-            self.phi += (train_y[i] == 1)
+            self.mu[train_y[i]] += train_x[i]
 
-            num_pos += (train_y[i] == 1)
-            num_neg += (train_y[i] == 0)
-
-            self.mu0 += (train_y[i] == 0) * train_x[i]
-            self.mu1 += (train_y[i] == 1) * train_x[i]
-
-        self.phi /= len(train_y)
-        self.mu0 /= num_neg
-        self.mu1 /= num_pos
+        self.mu /= [len(train_y) - np.sum(train_y), np.sum(train_y)]
 
         for i in range(len(train_y)):
-            if train_y[i] == 0:
-                self.sigma += np.dot(np.transpose(np.asmatrix(train_x[i] - self.mu0)),
-                                     np.asmatrix(train_x[i] - self.mu0))
-            else:
-                self.sigma += np.dot(np.transpose(np.asmatrix(train_x[i] - self.mu1)),
-                                     np.asmatrix(train_x[i] - self.mu1))
+            self.sigma += np.dot(np.transpose(np.asmatrix(train_x[i] - self.mu[train_y[i]])),
+                                 np.asmatrix(train_x[i] - train_y[i]))
 
         self.sigma /= len(train_y)
 
     def predict(self, test_x):
-        pred = []
+        p_x_y = np.zeros((len(test_x), 2))
 
-        for i in range(len(test_x)):
-            p_x_y_0 = 1 / ((2 * np.pi) ** (self.n_features / 2) * np.sqrt(
+        for i in range(2):
+            p_x_y[:, i] = np.diag(1 / ((2 * np.pi) ** (self.n_features / 2) * np.sqrt(
                 np.linalg.det(self.sigma))) * np.exp(
-                -.5 * np.dot(np.dot(np.transpose(test_x[i] - self.mu0), np.linalg.inv(self.sigma)),
-                             (test_x[i] - self.mu0)))
-            p_x_y_1 = 1 / ((2 * np.pi) ** (self.n_features / 2) * np.sqrt(
-                np.linalg.det(self.sigma))) * np.exp(
-                -.5 * np.dot(np.dot(np.transpose(test_x[i] - self.mu1), np.linalg.inv(self.sigma)),
-                             (test_x[i] - self.mu1)))
+                -.5 * ((test_x - self.mu[i]) @ np.linalg.inv(self.sigma) @ (test_x - self.mu[i]).T)))
 
-            p_0 = p_x_y_0 * (1 - self.phi) / (p_x_y_0 + p_x_y_1)
-            p_1 = p_x_y_1 * self.phi / (p_x_y_0 + p_x_y_1)
+        p = p_x_y * self.phi / np.sum(p_x_y * self.phi, axis = 1, keepdims = True)
 
-            pred.append(p_0 <= p_1)
-
-        return np.asarray(pred)
+        return np.argmax(p, axis = 1)

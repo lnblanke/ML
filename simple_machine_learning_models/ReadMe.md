@@ -30,6 +30,7 @@ automatically installs dependencies and builds up every model implemented here.
         - [AdaBoost](models/ada_boost)
         - [DBSCAN](models/dbscan)
         - [Decision Tree](models/decision_tree)
+        - [EM](models/em)
         - [GDA](models/gda)
         - [Gradient Boost](models/gradient_boost)
         - [K-Means](models/k_means)
@@ -39,6 +40,7 @@ automatically installs dependencies and builds up every model implemented here.
         - [Random Forest](models/random_forest)
         - [Softmax Regression](models/softmax_regression)
         - [Stacking](models/stacking)
+        - [SVM](models/svm)
     - [train.py](train.py) - a trainer that can be used to train each model
     - [train.ipynb](train.ipynb) - Jupyter Notebook version of the trainer
 
@@ -51,6 +53,7 @@ automatically installs dependencies and builds up every model implemented here.
 | Classification              | [AdaBoost](models/ada_boost)                      | NumPy, [Decision Tree](models/decision_tree) |
 | Clustering                  | [DBSCAN](models/dbscan)                           | Numpy                                        |
 | Classification & Regression | [Decision Tree](models/decision_tree)             | NumPy, SciPy                                 |
+| Clustering                  | [Expectation Maximization](models/em)             | NumPy                                        |
 | Classification              | [GDA](models/gda)                                 | NumPy                                        |
 | Regression                  | [Gradient Boost](models/gradient_boost)           | NumPy, [Decision Tree](models/decision_tree) |
 | Clustering                  | [K-Means](models/k_means)                         | NumPy                                        |
@@ -60,3 +63,4 @@ automatically installs dependencies and builds up every model implemented here.
 | Classification & Regression | [Random Forest](models/random_forest)             | NumPy, [Decision Tree](models/decision_tree) |
 | Classification              | [Softmax Regression](models/softmax_regression)   | Numpy                                        |
 | Regression                  | [Stacking](models/stacking)                       | Numpy, [Decision Tree](models/decision_tree) |
+| Classification              | [Support Vector Machine](models/svm)              | Numpy                                        |

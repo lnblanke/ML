@@ -12,6 +12,7 @@ from .Ensemble import Ensemble
 from .ada_boost import AdaBoost
 from .dbscan import DBSCAN
 from .decision_tree import DecisionTreeClassifier, DecisionTreeRegressor
+from .em import EM
 from .gda import GDA
 from .gradient_boost import GradBoost
 from .k_means import KMeans
@@ -21,12 +22,15 @@ from .naive_bayes import NaiveBayes
 from .random_forest import RandomForestClassifier, RandomForestRegressor
 from .softmax_regression import SoftmaxRegression
 from .stacking import StackingRegressor
+from .svm import SVM
+from .tools import *
 
 models = [
     AdaBoost,
     DecisionTreeClassifier,
     DBSCAN,
     DecisionTreeRegressor,
+    EM,
     GDA,
     GradBoost,
     KMeans,
@@ -36,5 +40,6 @@ models = [
     RandomForestClassifier,
     RandomForestRegressor,
     SoftmaxRegression,
-    StackingRegressor
+    StackingRegressor,
+    SVM
 ]

@@ -5,64 +5,38 @@
 # @File: train.py.py
 
 from models import *
-from neural_network.tools import *
 import time
 import numpy as np
 
-n_samples = 1000  # # of samples
-n_features = 2  # # of features
-max_depth = 5  # Max depth for decision tree
-n_classes = 4  # # of classes for softmax regression
-n_predictor = 10  # # of classifiers for ensemble models
-n_clusters = 2  # # of clusters for unsupervised models
 
-if __name__ == '__main__':
-    while 1:
-        name = input("Please input the model to train: ")
-        model_selected = None
+def train(model_name: str, *args, n_samples = 1000, n_features = 2, sep = 1.5, n_clusters = 2, random_state = None):
+    model_selected = None
 
-        for m in models:
-            if name.lower().replace(" ", "") == m.name.lower().replace(" ", ""):
-                model_selected = m
-                break
-
-        if model_selected is None:
-            print("The model you entered does not exist!")
-        else:
+    for m in models:
+        if model_name.lower().replace(" ", "") == m.name.lower().replace(" ", ""):
+            model_selected = m
             break
+
+    if model_selected is None:
+        raise NameError("The model you entered does not exist!")
 
     init = time.time()
 
-    if model_selected is DecisionTreeClassifier or model_selected is DecisionTreeRegressor:
-        model = model_selected(n_features, max_depth)
-    elif model_selected is DBSCAN:
-        model = model_selected(n_features, .3, 5)
-    elif issubclass(model_selected, Ensemble):
-        model = model_selected(n_features, n_predictor)
-    elif model_selected is SoftmaxRegression:
-        model = model_selected(n_features, n_classes)
-    elif model_selected is KMeans:
-        model = model_selected(n_features, n_clusters)
-    elif model_selected is not LinearRegression:
-        model = model_selected(n_features)
-    else:
-        while True:
-            try:
-                model = model_selected(input("Please input the type of linear regression model: "), n_features)
-                break
-            except TypeError:
-                print("The model does not exist!")
+    model = model_selected(n_features, *args)
 
     print(f"Training {model_selected.name} model...")
 
     if isinstance(model, Classifier):
+        # Classification models
         if model_selected is not SoftmaxRegression:
             train_x, test_x, train_y, test_y = get_classification_data(samples = n_samples, features = n_features,
-                                                                       sep = 1.5,
-                                                                       clusters = 2)
+                                                                       sep = sep,
+                                                                       clusters = n_clusters,
+                                                                       random_state = random_state)
         else:
             train_x, test_x, train_y, test_y = get_classification_data(samples = n_samples, features = n_features,
-                                                                       classes = n_classes, sep = 1.5)
+                                                                       classes = args[0], sep = sep,
+                                                                       random_state = random_state)
 
         model.train(train_x, train_y)
         pred = model.predict(test_x)
@@ -72,7 +46,9 @@ if __name__ == '__main__':
 
         show(test_x, pred, test_y, model.name)
     elif isinstance(model, Regressor):
-        train_x, test_x, train_y, test_y = get_regression_data(samples = n_samples, features = n_features)
+        # Regression models
+        train_x, test_x, train_y, test_y = get_regression_data(samples = n_samples, features = n_features,
+                                                               random_state = random_state)
 
         model.train(train_x, train_y)
         pred = model.predict(test_x)
@@ -85,9 +61,18 @@ if __name__ == '__main__':
         if n_features == 1:
             show_trendline(test_x, test_y, model, model.name)
     elif isinstance(model, Unsupervised):
-        x, y = get_classification_data(samples = n_samples, features = n_features, sep = 1.5, supervised = False)
+        # Unsupervised models
+        x, y = get_classification_data(samples = n_samples, features = n_features, sep = sep, supervised = False,
+                                       random_state = random_state)
 
         pred = model.train(x)
         print("Time: %.5fms" % ((time.time() - init) * 1000))
 
         show(x, pred, None, model.name)
+
+
+if __name__ == '__main__':
+    state = 4  # Set random state for reproducibility
+
+    name = input("Please input the model to train: ")
+    train(name, random_state = state)
