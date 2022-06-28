@@ -27,6 +27,7 @@ You can install all the dependent libraries via [requirements.txt](requirements.
 
 - Computer Vision
   - [AlexNet](AlexNet)
+  - [NiN](NiN)
   - [VGG](VGG)
   - [GoogLeNet](GoogLeNet)
   - [Xception](Xception)
@@ -36,10 +37,11 @@ You can install all the dependent libraries via [requirements.txt](requirements.
 
 <h3 id = "list"> List of Implementations </h3>
 
-| Category              | Model Name             | Paper Implemented                                                                                                                                    | Runnable Jupyter Notebook |
-|-----------------------|------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
-| Image Classification  | [AlexNet](AlexNet)     | [ImageNet Classification with Deep Convolutional Neural Networks](https://papers.nips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf) | Yes                       |
-| Image Classification  | [VGG](VGG)             | [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/pdf/1409.1556.pdf)                                            | Yes                       |
-| Image Classification  | [GoogLeNet](GoogLeNet) | [Going Deeper with Convolutions](https://arxiv.org/pdf/1409.4842.pdf)                                                                                | Yes                       |
-| Image Classification  | [Xception](Xception)   | [Xception: Deep Learning with Depthwise Separable Convolutions](https://arxiv.org/pdf/1610.02357.pdf)                                                | No                        |
-| Image Classification  | [ResNet](ResNet)       | [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/pdf/1409.1556.pdf)                                            | Yes                       |
+| Category              | Model Name                | Paper Implemented                                                                                                                                    | Runnable Jupyter Notebook |
+|-----------------------|---------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|
+| Image Classification  | [AlexNet](AlexNet)        | [ImageNet Classification with Deep Convolutional Neural Networks](https://papers.nips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf) | Yes                       |
+| Image Classification  | [Network in Network](NiN) | [Network in Network](https://arxiv.org/pdf/1312.4400.pdf)                                                                                            | Yes                       |
+| Image Classification  | [VGG](VGG)                | [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/pdf/1409.1556.pdf)                                            | Yes                       |
+| Image Classification  | [GoogLeNet](GoogLeNet)    | [Going Deeper with Convolutions](https://arxiv.org/pdf/1409.4842.pdf)                                                                                | Yes                       |
+| Image Classification  | [Xception](Xception)      | [Xception: Deep Learning with Depthwise Separable Convolutions](https://arxiv.org/pdf/1610.02357.pdf)                                                | No                        |
+| Image Classification  | [ResNet](ResNet)          | [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/pdf/1409.1556.pdf)                                            | Yes                       |
