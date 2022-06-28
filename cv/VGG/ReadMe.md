@@ -9,7 +9,7 @@ paper [Very Deep Convolutional Networks for Large-Scale Image Recognition](https
 Simonyan et al. published on ICLR 2015. In this paper, the authors utilized an up-to-19-layer neural network containing
 convolutional layers, pooling layers, and fully connected layers to predict ImageNet images. The detailed description of
 the model can be found in the paper listed above. In this directory, we used TensorFlow and Keras framework to implement
-a simple VGG model and trained our fine-tuned model with Cifar 10 model, receiving a top-1 accuracy of 86%.
+a simple VGG model and trained our fine-tuned model with Cifar 10 model, receiving a top-1 accuracy of 92% on test set using data augmentation and dropout.
 
 ### Structure of Directory
 

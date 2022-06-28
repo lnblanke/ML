@@ -2,7 +2,7 @@
 # @Time: 5/21/22
 # @Author: lnblanke
 # @Email: fjh314.84@gmail.com
-# @File: visualization.py.py
+# @File: visualization.py
 
 import matplotlib.pyplot as plt
 import tensorflow as tf

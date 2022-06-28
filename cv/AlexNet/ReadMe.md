@@ -9,7 +9,7 @@ paper [ImageNet Classification with Deep Convolutional Neural Networks](https://
 by Krizhevsky et al. published on NIPS 2012. In this paper, the authors utilized a nine-layer neural network containing
 convolutional layers, pooling layers, and fully connected layers to predict ImageNet images. The detailed description of
 the model can be found in the paper listed above. In this directory, we used TensorFlow and Keras framework to implement
-a simple AlexNet model and trained our fine-tuned model with Cifar 10 model, receiving a top-1 accuracy of 84%.
+a simple AlexNet model and trained our fine-tuned model with Cifar 10 model, receiving a top-1 accuracy of 84% on test set using data augmentation and dropout.
 
 ### Structure of Directory
 
