@@ -14,12 +14,11 @@ a simple VGG model and trained our fine-tuned model with Cifar 10 model, receivi
 ### Structure of Directory
 
 - [VGG.py](VGG.py)
+  
   This python file contains a function that builds an VGG model that can be trained on ImageNet dataset.
 - [VGG-19.png](VGG-19.png)
+  
   This png file shows the structure of VGG with 19 layers that can be trained on ImageNet dataset.
 - [VGG.ipynb](VGG.ipynb)
-  This Jupyter Notebook records our training of VGG on Cifar 10 dataset. It can be run on any devices.
-- [Weights](weights)
-  This directory contains the weights that we trained on Cifar 10 dataset.
 
-  **Update:** the weight file is too large to upload to GitHub and will be fixed soon.
+  This Jupyter Notebook records our training of VGG on Cifar 10 dataset. It can be run on any devices.

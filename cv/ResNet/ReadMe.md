@@ -13,12 +13,11 @@ our fine-tuned model with Cifar 10 model, receiving a top-1 accuracy of 91% on t
 ### Structure of Directory
 
 - [ResNet.py](ResNet.py)
+  
   This python file contains a function that builds a raw ResNet model that can be trained on ImageNet dataset.
 - [ResNet.png](ResNet-152.png)
+
   This png file shows the structure of ResNet-152 that can be trained on ImageNet dataset.
 - [ResNet.ipynb](ResNet.ipynb)
-  This Jupyter Notebook records our training of ResNet on Cifar 10 dataset. It can be run on any devices.
-- [Weights](weights)
-  This directory contains the weights that we trained on Cifar 10 dataset.
 
-  **Update:** the weight file is too large to upload to GitHub and will be fixed soon.
+  This Jupyter Notebook records our training of ResNet on Cifar 10 dataset. It can be run on any devices.

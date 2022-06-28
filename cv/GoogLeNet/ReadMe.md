@@ -13,10 +13,11 @@ our fine-tuned model with Cifar 10 model, receiving a top-1 accuracy of 90% on t
 ### Structure of Directory
 
 - [GoogLeNet.py](GoogLeNet.py)
+  
   This python file contains a function that builds a raw GoogleNet model that can be trained on ImageNet dataset.
 - [GoogLeNet.png](GoogLeNet.png)
+
   This png file shows the structure of GoogLeNet that can be trained on ImageNet dataset.
 - [GoogLeNet.ipynb](GoogLeNet.ipynb)
+
   This Jupyter Notebook records our training of GoogLeNet on Cifar 10 dataset. It can be run on any devices.
-- [Weights](weights)
-  This directory contains the weights that we trained on Cifar 10 dataset.

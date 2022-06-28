@@ -1,7 +1,6 @@
 # Network in Network
 
 ![paper.png](paper.png)
-
 ## Intro
 
 This directory is the implementation of NiN, the convolutional neural network structure demonstrated in the

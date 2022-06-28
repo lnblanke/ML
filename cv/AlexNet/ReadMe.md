@@ -14,10 +14,11 @@ a simple AlexNet model and trained our fine-tuned model with Cifar 10 model, rec
 ### Structure of Directory
 
 - [AlexNet.py](AlexNet.py)
+
   This python file contains a function that builds a raw AlexNet model that can be trained on ImageNet dataset.
 - [AlexNet.png](AlexNet.png)
+
   This png file shows the structure of AlexNet that can be trained on ImageNet dataset.
 - [AlexNet.ipynb](AlexNet.ipynb)
+
   This Jupyter Notebook records our training of AlexNet on Cifar 10 dataset. It can be run on any devices.
-- [Weights](weights)
-  This directory contains the weights that we trained on Cifar 10 dataset.
